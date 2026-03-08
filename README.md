@@ -1,3 +1,3 @@
-# Proyecto MYSD · SalchiTask
+# Modelos y Servicios de Datos
 ### **Integrantes:** Juan José Perez Torres, Cristian Camilo Ortiz Sánchez
-Este repositorio es para subir contenido relacionado con el proyecto de Modelos y Servicios de Datos como archivos .sql, .asta o que contengan información relevante en general.
+Este repositorio es para subir contenido relacionado con los Laboratorios y el Proyecto de MYSD
