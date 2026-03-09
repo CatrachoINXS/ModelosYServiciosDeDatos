@@ -86,3 +86,89 @@ CREATE TABLE Registro(
     
 /*(CICLO 1: XTablas)*/
 
+
+/*Crear tablas */
+INSERT INTO Encuesta
+VALUES (),
+    (),
+    ();
+
+INSERT INTO Evaluacion
+VALUES (),
+    (),
+    ();
+
+INSERT INTO Comentario
+VALUES (),
+    (),
+    ();
+
+INSERT INTO Ciclista
+VALUES (),
+    (),
+    ();
+
+INSERT INTO Persona
+VALUES (),
+    (),
+    ();
+
+INSERT INTO Participante
+VALUES (),
+    (),
+    ();
+
+INSERT INTO Empresa
+VALUES (),
+    (),
+    ();
+
+INSERT INTO EsOrganizador
+VALUES (),
+    (),
+    ();
+
+INSERT INTO Participa
+VALUES (),
+    (),
+    ();
+
+INSERT INTO Registro
+VALUES (),
+    (),
+    ();
+
+INSERT INTO Fotos
+VALUES (),
+    (),
+    ();
+
+INSERT INTO PropiedadDe
+VALUES (),
+    (),
+    ();
+
+INSERT INTO Punto
+VALUES (),
+    (),
+    ();
+
+INSERT INTO Carrera
+VALUES (),
+    (),
+    ();
+
+INSERT INTO Version
+VALUES (),
+    (),
+    ();
+
+INSERT INTO Contiene
+VALUES (),
+    (),
+    ();
+
+INSERT INTO Segmento
+VALUES (),
+    (),
+    ();
