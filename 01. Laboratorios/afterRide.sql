@@ -65,110 +65,59 @@ CREATE TABLE Contiene(
     versionNombre VARCHAR(5) NOT NULL,
     segmentoNombre VARCHAR(10) NOT NULL);
     
-/*Hasta aquí llegué, revisar los tipos de las tablas definidas
-y completar lo que falte de registro, tambien de encuesta, evaluacion
-y comentario. Revisar también el modelo lógico porque foto puede ser
-tabla (tiene multiplicidad).
-*/
-    
 CREATE TABLE Registro(
     numero NUMBER(5) NOT NULL,
     fecha DATE NOT NULL,
     tiempo NUMBER(9) NOT NULL,
     posicion NUMBER(5) NOT NULL,
-    revision VARCHAR,    /*Revisar*/
+    revision VARCHAR(50),
     dificultad VARCHAR(1) NOT NULL,
-    fotos,
-    comentario,
-    ciclistaId,
+    comentario VARCHAR(20),
+    ciclistaId NUMBER(15) NOT NULL,
     versionNombre VARCHAR(5) NOT NULL,
     segmentoNombre VARCHAR(10) NOT NULL);
     
+CREATE TABLE Fotos(
+    numero NUMBER(5) NOT NULL,
+    foto VARCHAR(50) NOT NULL);
+    
+CREATE TABLE Encuesta(
+    id NUMBER(5) NOT NULL,
+    criterio VARCHAR(20) NOT NULL,
+    presupuesto NUMBER(50) NOT NULL,
+    valorIncentivo NUMBER(50) NOT NULL,
+    fechaInicio DATE NOT NULL,
+    fechaFin DATE NOT NULL);
+    
+CREATE TABLE Evaluacion(
+    id NUMBER(5) NOT NULL,
+    fechaExacta DATE NOT NULL,
+    autor VARCHAR NOT NULL,
+    bienEvaluado VARCHAR NOT NULL,
+    puntuacion NUMBER(1),
+    encuestaId NUMBER(5),
+    participanteId NUMBER(5));
+    
+CREATE TABLE Comentario(
+    id NUMBER(5) NOT NULL,
+    contenido VARCHAR(300) NOT NULL,
+    idEvaluacion NUMBER(5));
+    
 /*(CICLO 1: XTablas)*/
-
-
-/*Crear tablas */
-INSERT INTO Encuesta
-VALUES (),
-    (),
-    ();
-
-INSERT INTO Evaluacion
-VALUES (),
-    (),
-    ();
-
-INSERT INTO Comentario
-VALUES (),
-    (),
-    ();
-
-INSERT INTO Ciclista
-VALUES (),
-    (),
-    ();
-
-INSERT INTO Persona
-VALUES (),
-    (),
-    ();
-
-INSERT INTO Participante
-VALUES (),
-    (),
-    ();
-
-INSERT INTO Empresa
-VALUES (),
-    (),
-    ();
-
-INSERT INTO EsOrganizador
-VALUES (),
-    (),
-    ();
-
-INSERT INTO Participa
-VALUES (),
-    (),
-    ();
-
-INSERT INTO Registro
-VALUES (),
-    (),
-    ();
-
-INSERT INTO Fotos
-VALUES (),
-    (),
-    ();
-
-INSERT INTO PropiedadDe
-VALUES (),
-    (),
-    ();
-
-INSERT INTO Punto
-VALUES (),
-    (),
-    ();
-
-INSERT INTO Carrera
-VALUES (),
-    (),
-    ();
-
-INSERT INTO Version
-VALUES (),
-    (),
-    ();
-
-INSERT INTO Contiene
-VALUES (),
-    (),
-    ();
-
-INSERT INTO Segmento
-VALUES (),
-    (),
-    ();
+DROP TABLE Participante;
+DROP TABLE Persona;
+DROP TABLE Empresa;
+DROP TABLE Ciclista;
+DROP TABLE EsOrganizador;
+DROP TABLE Participa; 
+DROP TABLE Carrera; 
+DROP TABLE Punto; 
+DROP TABLE PropiedadDe;  
+DROP TABLE Segmento; 
+DROP TABLE Version; 
+DROP TABLE Contiene;
+DROP TABLE Registro;
+DROP TABLE Fotos;
+DROP TABLE Encuesta;
+DROP TABLE Evaluacion;
+DROP TABLE Comentario;
