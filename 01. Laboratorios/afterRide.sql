@@ -85,3 +85,4 @@ CREATE TABLE Registro(
     segmentoNombre VARCHAR(10) NOT NULL);
     
 /*(CICLO 1: XTablas)*/
+
