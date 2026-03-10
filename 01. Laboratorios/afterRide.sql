@@ -122,23 +122,20 @@ DROP TABLE Encuesta;
 DROP TABLE Evaluacion;
 DROP TABLE Comentario;
 
-
-/* PoblarOK(1) */
-
 INSERT INTO Participante(id, idt, idn, pais, correo)
-VALUES (12345, CC, 196734811123456, Colombia, yanpopo@gmail.com),
-       (85733, CC, 123498757683922, Colombia, mandarina_podrida2@outlook.es),
-       (87999, CC, 111111111111839, Chile, mat1asElmo_jo@gmail.com);
+VALUES (87999, CC, 1076741066, COLOMBIA, scamilo027@gmail.com),
+       (85733, CC, 123498757683922, COLOMBIA, juanpereztorres874@gmail.com),
+       (12345, CC, 111111111111839, CHILE, mandarina_podrida2@outlook.es);
 
 INSERT INTO Persona(participanteId, nombres)
-VALUES (87999, Yanhira Alexandra Rios Churta),
-       (85733, Daniela Alexandra Mora Galvis),
+VALUES (87999, Cristian Camilo Ortiz Sanchez),
+       (85733, Juan Jose Perez Torres),
        (12345, Valeria Caballero Galvis);
 
 INSERT INTO Empresa(participanteId, razonSocial, personaId)
-VALUES (85733, atencion, 85733), /* Revisar lo de razon social y personaId*/
-       (12345, atencion, 12345),
-       (87999, atencion, 87999);
+VALUES (23444, BAVARIA & CIA S.C.A., 85733), /* Revisar lo de razon social y personaId*/
+       (54321, BAVARIA & CIA S.C.A., 12345),
+       (98787, atencion, 87999);
 
 INSERT INTO Ciclista(participanteId, nacimiento, categoria)
 VALUES (12345, 02/06/1998, 2),
@@ -160,7 +157,7 @@ VALUES (LK92KJDH475829301LQW, Amanecer, Colombia, 2, 5),
        (AHSGW627384HTTRYENVM, 'Cosecha', 'Colombia', 2, 5),
        (A6H29GDK3B7WEBVF7WBQ, 'Sancocho', 'Colombia', 5, 5);
 
-INSERT INTO Punto(codigo, orden, nombre, tipo, distancia, tiempoLimite) /*Terminar esta parte luego*/
+INSERT INTO Punto(codigo, orden, nombre, tipo, distancia, tiempoLimite)
 VALUES (LK92KJDH475829301LQW, ),
 
 INSERT INTO PropiedadDe(id, codigo, porcentaje)
@@ -207,5 +204,3 @@ INSERT INTO Comentario(id, contenido, idEvaluacion)
 VALUES (43281, 'exotico'75888),
        (81623, 'awesome', 90182),
        (15120, 'fantastic', 12571, );
-
-
