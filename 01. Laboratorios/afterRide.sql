@@ -157,7 +157,7 @@ VALUES (LK92KJDH475829301LQW, Amanecer, Colombia, 2, 5),
        (AHSGW627384HTTRYENVM, 'Cosecha', 'Colombia', 2, 5),
        (A6H29GDK3B7WEBVF7WBQ, 'Sancocho', 'Colombia', 5, 5);
 
-INSERT INTO Punto(codigo, orden, nombre, tipo, distancia, tiempoLimite)
+INSERT INTO Punto(codigo, orden, nombre, tipo, distancia, tiempoLimite) /*Terminar esta parte luego*/
 VALUES (LK92KJDH475829301LQW, ),
 
 INSERT INTO PropiedadDe(id, codigo, porcentaje)
@@ -204,3 +204,4 @@ INSERT INTO Comentario(id, contenido, idEvaluacion)
 VALUES (43281, 'exotico'75888),
        (81623, 'awesome', 90182),
        (15120, 'fantastic', 12571, );
+
