@@ -122,6 +122,9 @@ DROP TABLE Encuesta;
 DROP TABLE Evaluacion;
 DROP TABLE Comentario;
 
+
+/* PoblarOK(1) */
+
 INSERT INTO Participante(id, idt, idn, pais, correo)
 VALUES (12345, CC, 196734811123456, Colombia, yanpopo@gmail.com),
        (85733, CC, 123498757683922, Colombia, mandarina_podrida2@outlook.es),
@@ -204,4 +207,5 @@ INSERT INTO Comentario(id, contenido, idEvaluacion)
 VALUES (43281, 'exotico'75888),
        (81623, 'awesome', 90182),
        (15120, 'fantastic', 12571, );
+
 
