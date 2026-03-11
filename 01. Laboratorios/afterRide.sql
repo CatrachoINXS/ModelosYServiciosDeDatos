@@ -277,6 +277,13 @@ VALUES ('centrado_democratico', 091265, 2, 'La mitosis es un proceso biologico e
 /*INSERT INTO Comentario(id, idt, idn, pais, correo)
 VALUES ('la', 'vaca', 'loca', 01, coxis)*/
 
+/* Consultas consultadas por consultar */
+
+SELECT s.nombre, p.nombre FROM segmento s JOIN punto p
+ON s.ordenInicio = p.orden AND s.ordenFin = p.orden
+WHERE 
+
+
 
 
 
