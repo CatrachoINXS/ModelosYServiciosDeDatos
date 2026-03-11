@@ -263,27 +263,56 @@ ALTER TABLE EsOrganizador
 ADD CONSTRAINT FK_ES_ORGANIZADOR_PARTICIPANTEID FOREIGN KEY (participanteId) REFERENCES Participante (id);
 
 ALTER TABLE EsOrganizador
-
 ADD CONSTRAINT FK_ES_ORGANIZADOR_VERSION_NOMBRE FOREIGN KEY (versionNombre) REFERENCES Version (nombre);
 
-/*popo*/
+ALTER TABLE Participa
+ADD CONSTRAINT FK_PARTICIPA_PARTICIPANTEID FOREIGN KEY (participanteId) REFERENCES Participante (id);
 
-/*INSERT INTO Comentario(id, contenido, idEvaluacion)
-VALUES ('chismosa', 12345, 'pacto_historico')*/
+ALTER TABLE Participa
+ADD CONSTRAINT FK_PARTICIPA_VERSION_NOMBRE FOREIGN KEY (versionNombre) REFERENCES Version (nombre);
 
-/*INSERT INTO Registro(numero, fecha, tiempo, posicion, revision, dificultad, comentario, ciclistaId, versionNombre, segmentoNombre)
-VALUES ('centrado_democratico', 091265, 2, 'La mitosis es un proceso biologico en el que')*/
+ALTER TABLE PropiedadDe
+ADD CONSTRAINT FK_PROPIEDADDE_PARTICIPANTE FOREIGN KEY (id) REFERENCES Participante (id);
 
-/*INSERT INTO Comentario(id, idt, idn, pais, correo)
-VALUES ('la', 'vaca', 'loca', 01, coxis)*/
+ALTER TABLE PropiedadDe
+ADD CONSTRAINT FK_PROPIEDADDE_CARRERA FOREIGN KEY (codigo) REFERENCES Carrera (codigo);
 
-/* Consultas consultadas por consultar */
+ALTER TABLE Punto
+ADD CONSTRAINT FK_PUNTO_CARRERA FOREIGN KEY (codigo) REFERENCES Carrera (codigo);
 
-SELECT s.nombre, p.nombre FROM segmento s JOIN punto p
-ON s.ordenInicio = p.orden AND s.ordenFin = p.orden
-WHERE 
+ALTER TABLE Segmento
+ADD CONSTRAINT FK_ORDENINICIO FOREIGN KEY (ordenInicio) REFERENCES Punto (orden);
 
+ALTER TABLE Segmento
+ADD CONSTRAINT FK_ORDENFIN FOREIGN KEY (ordenFin) REFERENCES Punto (orden);
 
+ALTER TABLE Contiene
+ADD CONSTRAINT FK_CONTIENE_VERSION_NOMBRE FOREIGN KEY (versionNombre) REFERENCES Version (nombre);
 
+ALTER TABLE Contiene
+ADD CONSTRAINT FK_CONTIENE_SEGMENTO_NOMBRE FOREIGN KEY (segmentoNombre) REFERENCES Segmento (nombre);
 
+ALTER TABLE Version
+ADD CONSTRAINT FK_VERSION_CODIGO FOREIGN KEY (codigo) REFERENCES Carrera (codigo);
+
+ALTER TABLE Registro
+ADD CONSTRAINT FK_CICLISTAID_PARTICIPANTEID FOREIGN KEY (ciclistaId) REFERENCES Ciclista (participanteId);
+
+ALTER TABLE Registro
+ADD CONSTRAINT FK_REGISTRO_VERSION_NOMBRE FOREIGN KEY (versionNombre) REFERENCES Version (nombre);
+
+ALTER TABLE Registro
+ADD CONSTRAINT FK_REGISTRO_SEGMENTO_NOMBRE FOREIGN KEY (segmentoNombre) REFERENCES Segmento (nombre);
+
+ALTER TABLE Fotos
+ADD CONSTRAINT FK_FOTOS_NUMERO_REGISTRO FOREIGN KEY (numeroRegistro) REFERENCES Registro (numero);
+
+ALTER TABLE Evaluacion
+ADD CONSTRAINT FK_EVALUACION_ENCUESTA_ID FOREIGN KEY (encuestaId) REFERENCES Encuesta (id);
+
+ALTER TABLE Evaluacion
+ADD CONSTRAINT FK_EVALUACION_PARTICIPANTE_ID FOREIGN KEY (participanteId) REFERENCES Participante (id);
+
+ALTER TABLE Comentario
+ADD CONSTRAINT FK_COMENTARIO_ID_EVALUACION FOREIGN KEY (idEvaluacion) REFERENCES Evaluacion (id);
 
