@@ -263,4 +263,20 @@ ALTER TABLE EsOrganizador
 ADD CONSTRAINT FK_ES_ORGANIZADOR_PARTICIPANTEID FOREIGN KEY (participanteId) REFERENCES Participante (id);
 
 ALTER TABLE EsOrganizador
+
 ADD CONSTRAINT FK_ES_ORGANIZADOR_VERSION_NOMBRE FOREIGN KEY (versionNombre) REFERENCES Version (nombre);
+
+/*popo*/
+
+/*INSERT INTO Comentario(id, contenido, idEvaluacion)
+VALUES ('chismosa', 12345, 'pacto_historico')*/
+
+/*INSERT INTO Registro(numero, fecha, tiempo, posicion, revision, dificultad, comentario, ciclistaId, versionNombre, segmentoNombre)
+VALUES ('centrado_democratico', 091265, 2, 'La mitosis es un proceso biologico en el que')*/
+
+/*INSERT INTO Comentario(id, idt, idn, pais, correo)
+VALUES ('la', 'vaca', 'loca', 01, coxis)*/
+
+
+
+
