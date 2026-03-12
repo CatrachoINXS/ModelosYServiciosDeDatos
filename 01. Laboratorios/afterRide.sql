@@ -177,14 +177,30 @@ INSERT INTO Comentario(id, contenido, idEvaluacion) VALUES (15120, 'Fantastic', 
 
 /*PoblarNoOK 2)*/
 
-/*Caso 1: Se va a verificar que el tipo de dato de los id sea de tipo NUMBER y no VARCHAR. (SQL Error: ORA-01722: invalid number)
-Caso 2: Se va a validar que la cantidad de datos solicitados de una tabla, corresponda a la cantidad de datos ingresados. (SQL Error: ORA-00913: too many values)
-Caso 3: Se va a validar que el ‘participanteId’ de Persona no sea mayor a 15 caracteres. (SQL Error: ORA-01438: value larger than specified precision allowed for this column)*/
+/*Caso 1: Se va a verificar que el tipo de dato de los id sea NUMBER y no VARCHAR. 
+    (SQL Error: ORA-01722: invalid number)
+Caso 2: Se va a validar que la cantidad de datos solicitados de una tabla, corresponda a la cantidad de datos ingresados.
+    (SQL Error: ORA-00913: too many values)
+Caso 3: Se va a validar que el ‘participanteId’ de Persona no sea mayor a 15 caracteres. 
+    (SQL Error: ORA-01438: value larger than specified precision allowed for this column)*/
 
 /*
 INSERT INTO Comentario(id, contenido, idEvaluacion) VALUES ('unodostres', 'Demasiado exótico', 'sietecincoocho');
-INSERT INTO Fotos(foto, numeroRegistro) VALUES ('www.sucesor-de-nairo-quintana.pdf', 87999, 'Hola');
+INSERT INTO Participante(id, idt, idn, pais, correo) VALUES (12345, 'CC', 111111111111839, 'CHILE', 'mandarina_podrida2@outlook.es')
 INSERT INTO Persona(participanteId, nombre) VALUES(12345678910111213141516, 'Francisco Jose de Caldas');
+*/
+
+/*Caso 1: Se va a verificar que una persona no se duplique. 
+    (SQL Error: ORA-00001: unique constraint (BD1000105286.PK_PERSONA) violated)
+Caso 2: Se va a validar que un id no pueda ser NULL.
+    (SQL Error: ORA-01400: cannot insert NULL into ("BD1000105286"."PARTICIPANTE"."ID"))
+Caso 3: Se va a validar que en una clave foránea deba existir el valor al que se apunta. 
+    (SQL Error: ORA-02291: integrity constraint (BD1000105286.FK_CONTIENE_SEGMENTO_NOMBRE) violated - parent key not found)*/
+
+/*
+INSERT INTO Persona(participanteId, nombre) VALUES(87999, 'Cristian Camilo Ortiz Sanchez');
+INSERT INTO Participante(id, idt, idn, pais, correo) VALUES (NULL, 'CE', 15353423, 'BRASIL', 'other_user@outlook.es')
+INSERT INTO Contiene(versionNombre, segmentoNombre) VALUES ('Coco', 'Coco2');
 */
 
 /*PoblarNoOK 3)*/
@@ -334,7 +350,6 @@ WHERE */
 /*(CICLO 1: XTablas)*/
 /*
 
--- Esto elimina las tablas si ya existen, evitando conflictos de integridad
 DROP TABLE Comentario CASCADE CONSTRAINTS;
 DROP TABLE Evaluacion CASCADE CONSTRAINTS;
 DROP TABLE Encuesta CASCADE CONSTRAINTS;
