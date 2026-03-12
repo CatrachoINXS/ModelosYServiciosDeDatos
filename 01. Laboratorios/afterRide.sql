@@ -2,7 +2,7 @@
 * Autores: Juan Jose Perez, Cristian Camilo Ortiz
 */
 
-/*(CICLO 1: Tablas)*/
+/*Tablas*/
 CREATE TABLE Participante(
     id NUMBER(5) NOT NULL,
     idt CHAR(2) NOT NULL,
@@ -104,26 +104,8 @@ CREATE TABLE Comentario(
     id NUMBER(5) NOT NULL,
     contenido VARCHAR(300) NOT NULL,
     idEvaluacion NUMBER(5));
-    
-/*(CICLO 1: XTablas)*/
-/*
-DROP TABLE Participante;
-DROP TABLE Persona;
-DROP TABLE Empresa;
-DROP TABLE Ciclista;
-DROP TABLE EsOrganizador;
-DROP TABLE Participa; 
-DROP TABLE Carrera; 
-DROP TABLE Punto; 
-DROP TABLE PropiedadDe;  
-DROP TABLE Segmento; 
-DROP TABLE Version; 
-DROP TABLE Contiene;
-DROP TABLE Registro;
-DROP TABLE Fotos;
-DROP TABLE Encuesta;
-DROP TABLE Evaluacion;
-DROP TABLE Comentario;*/
+
+/* PoblarOK */
 
 INSERT INTO Participante(id, idt, idn, pais, correo) VALUES (12345, 'CC', 111111111111839, 'CHILE', 'mandarina_podrida2@outlook.es');
 INSERT INTO Participante(id, idt, idn, pais, correo) VALUES (87999, 'CC', 1076741066, 'COLOMBIA', 'scamilo027@gmail.com');
@@ -149,9 +131,9 @@ INSERT INTO Participa(ciclistaId, versionNombre) VALUES (12345, 'Aloja');
 INSERT INTO Participa(ciclistaId, versionNombre) VALUES(85733, 'Campo');
 INSERT INTO Participa(ciclistaId, versionNombre) VALUES(87999, 'Coco');
 
-INSERT INTO Carrera(codigo, nombre, pais, categoria, periodicidad) VALUES ('LK92KJDH475829301LQW', 'Vuelta Libertadores', 'Colombia', 2, 5); /*Revisar tipo periodicidad*/
-INSERT INTO Carrera(codigo, nombre, pais, categoria, periodicidad) VALUES('AHSGW627384HTTRYENVM', 'Vuelta del Sancocho', 'Colombia', 2, 5); /*Revisar tipo periodicidad*/
-INSERT INTO Carrera(codigo, nombre, pais, categoria, periodicidad) VALUES('A6H29GDK3B7WEBVF7WBQ', 'Giro de la ECI', 'Colombia', 5, 5); /*Revisar tipo periodicidad*/
+INSERT INTO Carrera(codigo, nombre, pais, categoria, periodicidad) VALUES ('LK92KJDH475829301LQW', 'Vuelta Libertadores', 'COLOMBIA', 2, 5); /*Revisar tipo periodicidad*/
+INSERT INTO Carrera(codigo, nombre, pais, categoria, periodicidad) VALUES('AHSGW627384HTTRYENVM', 'Vuelta del Sancocho', 'COLOMBIA', 2, 5); /*Revisar tipo periodicidad*/
+INSERT INTO Carrera(codigo, nombre, pais, categoria, periodicidad) VALUES('A6H29GDK3B7WEBVF7WBQ', 'Giro de la ECI', 'COLOMBIA', 5, 5); /*Revisar tipo periodicidad*/
        
 INSERT INTO Punto(orden, nombre, tipo, distancia, tiempoLimite, codigo) VALUES (15, 'AltoAguila', 'C', 14.82, 54, 'LK92KJDH475829301LQW');
 INSERT INTO Punto(orden, nombre, tipo, distancia, tiempoLimite, codigo) VALUES (32, 'PuntoRojo', 'M', 21.01, 95, 'AHSGW627384HTTRYENVM');
@@ -161,9 +143,9 @@ INSERT INTO PropiedadDe(id, codigo, porcentaje) VALUES (12345, 'LK92KJDH47582930
 INSERT INTO PropiedadDe(id, codigo, porcentaje) VALUES (87999, 'LK92KJDH475829301LQW', 50);
 INSERT INTO PropiedadDe(id, codigo, porcentaje) VALUES (85733, 'A6H29GDK3B7WEBVF7WBQ', 25);  /*Revisar tipo porcentaje*/
 
-INSERT INTO Segmento(nombre, tipo, ordenInicio, ordenFin) VALUES ('Arroyo', 'M', 14, 15);
-INSERT INTO Segmento(nombre, tipo, ordenInicio, ordenFin) VALUES ('Acantilado', 'M', 25, 43);
-INSERT INTO Segmento(nombre, tipo, ordenInicio, ordenFin) VALUES ('HotWheels', 'C', 23, 22);
+INSERT INTO Segmento(nombre, tipo, ordenInicio, ordenFin) VALUES ('Arroyo', 'M', 15, 32);
+INSERT INTO Segmento(nombre, tipo, ordenInicio, ordenFin) VALUES ('Acantilado', 'M', 32, 22);
+INSERT INTO Segmento(nombre, tipo, ordenInicio, ordenFin) VALUES ('HotWheels', 'C', 15, 22);
 
 INSERT INTO Version(nombre, fecha, codigo) VALUES ('Coco',  DATE '2026-03-02', 'LK92KJDH475829301LQW');
 INSERT INTO Version(nombre, fecha, codigo) VALUES ('Aloja',  DATE '2026-11-01', 'AHSGW627384HTTRYENVM');
@@ -185,18 +167,39 @@ INSERT INTO Encuesta(id, criterio, presupuesto, valorIncentivo, fechaInicio, fec
 INSERT INTO Encuesta(id, criterio, presupuesto, valorIncentivo, fechaInicio, fechaFin) VALUES (17293, 'tiempo de espera', 480000, 120000, DATE '2026-03-11', DATE '2026-03-15');
 INSERT INTO Encuesta(id, criterio, presupuesto, valorIncentivo, fechaInicio, fechaFin) VALUES (99271, 'calidad percibida', 340000, 70000, DATE '2026-04-20', DATE '2026-04-24');
        
-/*Revisar como es el tema con las evaluaciones y como se implementa en la base de datos porque puede que no sea necesario implementar bien evaluado*/
-/*
-INSERT INTO Evaluacion(id, fechaExacta, autor, bienEvaluado, puntuacion, encuestaId, participanteId) VALUES (75888, DATE '2026-03-11', 'Carlos', NOC, 4, 76525, 12345);
-INSERT INTO Evaluacion(id, fechaExacta, autor, bienEvaluado, puntuacion, encuestaId, participanteId) VALUES (90182, DATE '2026-03-11', 'Sofia', NOC, 2, 17293, 85733);
-INSERT INTO Evaluacion(id, fechaExacta, autor, bienEvaluado, puntuacion, encuestaId, participanteId) VALUES (12571, DATE '2026-03-11', 'Esteban', NOC, 3, 99271, 87999);*/
+INSERT INTO Evaluacion(id, fechaExacta, autor, bienEvaluado, puntuacion, encuestaId, participanteId) VALUES (75888, DATE '2026-03-11', 'Carlos', 'NOC', 4, 76525, 12345);
+INSERT INTO Evaluacion(id, fechaExacta, autor, bienEvaluado, puntuacion, encuestaId, participanteId) VALUES (90182, DATE '2026-03-11', 'Sofia', 'NOC', 2, 17293, 85733);
+INSERT INTO Evaluacion(id, fechaExacta, autor, bienEvaluado, puntuacion, encuestaId, participanteId) VALUES (12571, DATE '2026-03-11', 'Esteban', 'NOC', 3, 99271, 87999);
        
 INSERT INTO Comentario(id, contenido, idEvaluacion) VALUES (43281, 'Demasiado exótico.',75888);
 INSERT INTO Comentario(id, contenido, idEvaluacion) VALUES (81623, 'Awesome', 90182);
 INSERT INTO Comentario(id, contenido, idEvaluacion) VALUES (15120, 'Fantastic', 12571);
-       
-/*(D.	Construcción: protegiendo) */
-/*(CICLO 1: Primarias)*/
+
+/*PoblarNoOK 2)*/
+
+/*Caso 1: Se va a verificar que el tipo de dato de los id sea de tipo NUMBER y no VARCHAR. (SQL Error: ORA-01722: invalid number)
+Caso 2: Se va a validar que la cantidad de datos solicitados de una tabla, corresponda a la cantidad de datos ingresados. (SQL Error: ORA-00913: too many values)
+Caso 3: Se va a validar que el ‘participanteId’ de Persona no sea mayor a 15 caracteres. (SQL Error: ORA-01438: value larger than specified precision allowed for this column)*/
+
+/*
+INSERT INTO Comentario(id, contenido, idEvaluacion) VALUES ('unodostres', 'Demasiado exótico', 'sietecincoocho');
+INSERT INTO Fotos(foto, numeroRegistro) VALUES ('www.sucesor-de-nairo-quintana.pdf', 87999, 'Hola');
+INSERT INTO Persona(participanteId, nombre) VALUES(12345678910111213141516, 'Francisco Jose de Caldas');
+*/
+
+/*PoblarNoOK 3)*/
+
+/*Caso 1: correo donde el '@' no tiene caracteres ni antes ni después
+Caso 2: carrera donde la categoría es un entero que no está en el rango entre 1 y 5 
+Caso 3: Foto que no empieza por www. ni termina con .git o .pdf*/
+
+/*
+INSERT INTO Participante(id, idt, idn, pais, correo) VALUES (76456, 'CC', 80541115, 'PERU', '@');
+INSERT INTO Carrera(codigo, nombre, pais, categoria, periodicidad) VALUES ('IAUFIKJDKALFU3423IO', 'VueltaDeLosDeSistemas', 'COLOMBIA', 9, 5);
+INSERT INTO Fotos(foto, numeroRegistro) VALUES ('sucesor-de-egan-bernal', 87999);
+*/
+
+/*Primarias*/
 
 ALTER TABLE Participante
 ADD CONSTRAINT PK_PARTICIPANTE PRIMARY KEY (id);
@@ -217,7 +220,10 @@ ALTER TABLE Carrera
 ADD CONSTRAINT PK_CARRERA PRIMARY KEY (codigo); 
 
 ALTER TABLE PropiedadDe
-ADD CONSTRAINT PK_PROPIEDAD_DE PRIMARY KEY (id, codigo); 
+ADD CONSTRAINT PK_PROPIEDAD_DE PRIMARY KEY (id, codigo);
+
+ALTER TABLE Punto
+ADD CONSTRAINT PK_PUNTO PRIMARY KEY (orden); 
 
 ALTER TABLE Segmento
 ADD CONSTRAINT PK_SEGMENTO PRIMARY KEY (nombre); 
@@ -240,12 +246,12 @@ ADD CONSTRAINT PK_EVALUACION PRIMARY KEY (id);
 ALTER TABLE Comentario
 ADD CONSTRAINT PK_COMENTARIO PRIMARY KEY (id);
 
-/*(CICLO 1: Unicas)*/
+/*Unicas*/
 
 ALTER TABLE Registro
 ADD CONSTRAINT UK_CICLISTA_ID UNIQUE (ciclistaId);
 
-/*(CICLO 1: Foraneas)*/
+/*Foráneas*/
 
 ALTER TABLE Persona
 ADD CONSTRAINT FK_PERSONA_PARTICIPANTEID FOREIGN KEY (participanteId) REFERENCES Participante (id);
@@ -266,7 +272,7 @@ ALTER TABLE EsOrganizador
 ADD CONSTRAINT FK_ES_ORGANIZADOR_VERSION_NOMBRE FOREIGN KEY (versionNombre) REFERENCES Version (nombre);
 
 ALTER TABLE Participa
-ADD CONSTRAINT FK_PARTICIPA_PARTICIPANTEID FOREIGN KEY (participanteId) REFERENCES Participante (id);
+ADD CONSTRAINT FK_PARTICIPA_PARTICIPANTEID FOREIGN KEY (ciclistaId) REFERENCES Participante (id);
 
 ALTER TABLE Participa
 ADD CONSTRAINT FK_PARTICIPA_VERSION_NOMBRE FOREIGN KEY (versionNombre) REFERENCES Version (nombre);
@@ -316,3 +322,51 @@ ADD CONSTRAINT FK_EVALUACION_PARTICIPANTE_ID FOREIGN KEY (participanteId) REFERE
 ALTER TABLE Comentario
 ADD CONSTRAINT FK_COMENTARIO_ID_EVALUACION FOREIGN KEY (idEvaluacion) REFERENCES Evaluacion (id);
 
+
+
+/* Consultas consultadas por consultar
+
+SELECT s.nombre, p.nombre FROM segmento s JOIN punto p
+ON s.ordenInicio = p.orden AND s.ordenFin = p.orden
+WHERE */
+
+
+/*(CICLO 1: XTablas)*/
+/*
+
+-- Esto elimina las tablas si ya existen, evitando conflictos de integridad
+DROP TABLE Comentario CASCADE CONSTRAINTS;
+DROP TABLE Evaluacion CASCADE CONSTRAINTS;
+DROP TABLE Encuesta CASCADE CONSTRAINTS;
+DROP TABLE Fotos CASCADE CONSTRAINTS;
+DROP TABLE Registro CASCADE CONSTRAINTS;
+DROP TABLE Contiene CASCADE CONSTRAINTS;
+DROP TABLE Version CASCADE CONSTRAINTS;
+DROP TABLE Segmento CASCADE CONSTRAINTS;
+DROP TABLE PropiedadDe CASCADE CONSTRAINTS;
+DROP TABLE Punto CASCADE CONSTRAINTS;
+DROP TABLE Carrera CASCADE CONSTRAINTS;
+DROP TABLE Participa CASCADE CONSTRAINTS;
+DROP TABLE EsOrganizador CASCADE CONSTRAINTS;
+DROP TABLE Ciclista CASCADE CONSTRAINTS;
+DROP TABLE Empresa CASCADE CONSTRAINTS;
+DROP TABLE Persona CASCADE CONSTRAINTS;
+DROP TABLE Participante CASCADE CONSTRAINTS;
+
+DROP TABLE Participante;
+DROP TABLE Persona;
+DROP TABLE Empresa;
+DROP TABLE Ciclista;
+DROP TABLE EsOrganizador;
+DROP TABLE Participa; 
+DROP TABLE Carrera; 
+DROP TABLE Punto; 
+DROP TABLE PropiedadDe;  
+DROP TABLE Segmento; 
+DROP TABLE Version; 
+DROP TABLE Contiene;
+DROP TABLE Registro;
+DROP TABLE Fotos;
+DROP TABLE Encuesta;
+DROP TABLE Evaluacion;
+DROP TABLE Comentario;*/
