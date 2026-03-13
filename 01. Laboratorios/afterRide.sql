@@ -340,11 +340,14 @@ ADD CONSTRAINT FK_COMENTARIO_ID_EVALUACION FOREIGN KEY (idEvaluacion) REFERENCES
 
 
 
-/* Consultas consultadas por consultar
+/* Consultas consultadas por consultar */
 
-SELECT s.nombre, p.nombre FROM segmento s JOIN punto p
+SELECT s.nombre, p.nombre FROM Segmento s JOIN Punto p
 ON s.ordenInicio = p.orden AND s.ordenFin = p.orden
-WHERE */
+ORDER BY tiempoLimite DESC
+LIMIT (5)
+
+SELECT * FROM Punto p
 
 
 /*(CICLO 1: XTablas)*/
@@ -384,4 +387,5 @@ DROP TABLE Registro;
 DROP TABLE Fotos;
 DROP TABLE Encuesta;
 DROP TABLE Evaluacion;
+
 DROP TABLE Comentario;*/
