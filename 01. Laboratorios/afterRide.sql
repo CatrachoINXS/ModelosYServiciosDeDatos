@@ -386,6 +386,49 @@ DROP TABLE Participante CASCADE CONSTRAINTS;*/
 
 /*Poblando nuevamente la base de datos*/
 
+/* Restricciones: Faltó Tconsecutivo y Trevision */
+ALTER TABLE Registro
+ADD CONSTRAINT CK_REGISTRO_DURACION
+CHECK(tiempo > 0);
+
+
+ALTER TABLE Registro
+ADD CONSTRAINT CK_REGISTRO_DIFICULTAD
+CHECK (dificultad IN ('A', 'M', 'B'));
+
+ALTER TABLE Foto
+ADD CONSTRAINT CK_FOTOS_FOTO
+CHECK (foto LIKE 'www.%.git' OR foto LIKE 'www.%.pdf');
+
+ALTER TABLE Ciclista
+ADD CONSTRAINT CK_CICLISTA_CATEGORIA
+CHECK (categoria BETWEEN 1 AND 5);
+
+ALTER TABLE Segmento
+ADD CONSTRAINT CK_SEGMENTO_TIPO
+CHECK (tipo IN ('C', 'M', 'L'));
+
+ALTER TABLE Punto
+ADD CONSTRAINT CK_PUNTO_TIPO
+CHECK (tipo IN ('P', 'L', 'H', 'A', 'M', 'V', 'C'));
+
+ALTER TABLE Punto
+ADD CONSTRAINT CK_PUNTO_TIEMPO_LIMITE
+CHECK (tiempoLimite > 0);
+
+ALTER TABLE PropiedadDe
+ADD CONSTRAINT CK_PROPIEDADDE_PORCENTAJE
+CHECK (porcentaje > 0) /* Revisar el tipo porcentaje */
+
+ALTER TABLE Carrera
+ADD CONSTRAINT CK_CARRERA_CODIGO
+CHECK (codigo > 0) /* Hacer disparador*/
+
+ALTER TABLE Carrera
+ADD CONSTRAINT CK_CARRERA_PAIS
+CHECK (psis = 'venezuela') /* Hacer esta restriccion*/
+
+
 insert into Participante (p_id, idt, idn, pais, correo) values (10001, 'CE', 1010101, 'USA', 'john.doe@gmail.com');
 insert into Participante (p_id, idt, idn, pais, correo) values (10002, 'CE', 2020202, 'UK', 'jane.smith@yahoo.com');
 insert into Participante (p_id, idt, idn, pais, correo) values (10003, 'CE', 3030303, 'FRANCE', 'pierre.gasly@f1.com');
