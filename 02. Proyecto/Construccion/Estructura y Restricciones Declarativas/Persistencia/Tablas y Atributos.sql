@@ -1,4 +1,5 @@
 /*
+SalchiTask
 Autores: Juan Jose Perez Torres, Cristian Camilo Ortiz Sánchez
 Fecha: 2026-03-22
 Descripción: Creacion de tablas y atributos CICLO1
@@ -25,7 +26,7 @@ CREATE TABLE Domiciliarios(
     idEmpleado NUMBER(5) NOT NULL,
     pedidosEntregados NUMBER(5) NOT NULL,
     placaVehiculo VARCHAR(6) NOT NULL,
-    disponiblidad BOOLEAN NOT NULL);
+    disponiblidad NUMBER(1) NOT NULL);
     
 CREATE TABLE Meseros(
     idEmpleado NUMBER(5) NOT NULL,
@@ -38,7 +39,7 @@ CREATE TABLE Clientes(
     apellido VARCHAR(30) NOT NULL,
     telefono NUMBER(10) NOT NULL,
     direccion VARCHAR(100) NOT NULL,
-    clienteFiel BOOLEAN NOT NULL,
+    clienteFiel NUMBER(1) NOT NULL,
     reseña VARCHAR(300),
     idMesero NUMBER(5) NOT NULL);
     
@@ -65,14 +66,14 @@ CREATE TABLE Ingredientes(
     
 CREATE TABLE Menu(
     id NUMBER(5) NOT NULL,
-    activo BOOLEAN NOT NULL);
+    activo NUMBER(1) NOT NULL);
     
 CREATE TABLE Facturas(
     id VARCHAR(15) NOT NULL,
     fechaExpedicion DATE NOT NULL,
     direccion VARCHAR(100) NOT NULL,
     estadoFactura VARCHAR(10) NOT NULL,
-    propina NUMBER(20) NOT NULL,
+    propina NUMBER(20),
     precio NUMBER(20) NOT NULL,
     idCliente NUMBER(5) NOT NULL,
     idPedido NUMBER(5) NOT NULL);
