@@ -7,8 +7,8 @@ Descripción: Creacion de tablas y atributos CICLO1
 
 CREATE TABLE Empleados(
     id NUMBER(5) NOT NULL,
-    nombre VARCHAR(30) NOT NULL,
-    apellido VARCHAR(30) NOT NULL,
+    nombres VARCHAR(30) NOT NULL,
+    apellidos VARCHAR(30) NOT NULL,
     telefono NUMBER(10) NOT NULL,
     direccionResidencia VARCHAR(100) NOT NULL,
     correo VARCHAR(30) NOT NULL,
@@ -35,8 +35,8 @@ CREATE TABLE Meseros(
     
 CREATE TABLE Clientes(
     id NUMBER(5) NOT NULL,
-    nombre VARCHAR(30) NOT NULL,
-    apellido VARCHAR(30) NOT NULL,
+    nombres VARCHAR(30) NOT NULL,
+    apellidos VARCHAR(30) NOT NULL,
     telefono NUMBER(10) NOT NULL,
     direccion VARCHAR(100) NOT NULL,
     clienteFiel NUMBER(1) NOT NULL,
@@ -79,7 +79,7 @@ CREATE TABLE Facturas(
     idPedido NUMBER(5) NOT NULL);
     
 CREATE TABLE Descuentos(
-    idFactura NUMBER(5) NOT NULL,
+    idFactura VARCHAR(15) NOT NULL,
     descuento NUMBER(20) NOT NULL);
     
 CREATE TABLE Paga(
