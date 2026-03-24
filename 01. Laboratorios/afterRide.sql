@@ -387,18 +387,31 @@ DROP TABLE Participante CASCADE CONSTRAINTS;*/
 /*Poblando nuevamente la base de datos*/
 
 /* Restricciones: Faltó Tconsecutivo y Trevision */
+
+ALTER TABLE Registro
+ADD CONSTRAINT CK_REGISTRO_CONSECUTIVO
+CHECK (numero BETWEEN 1 AND 99999)
+
 ALTER TABLE Registro
 ADD CONSTRAINT CK_REGISTRO_DURACION
 CHECK(tiempo > 0);
 
+ALTER TABLE Registro
+ADD CONSTRAINT CK_REGISTRO_REVISION
+CHECK (revision = 0) /* Terminar esta restriccion*/
 
 ALTER TABLE Registro
 ADD CONSTRAINT CK_REGISTRO_DIFICULTAD
 CHECK (dificultad IN ('A', 'M', 'B'));
 
+
+
 ALTER TABLE Foto
 ADD CONSTRAINT CK_FOTOS_FOTO
 CHECK (foto LIKE 'www.%.git' OR foto LIKE 'www.%.pdf');
+
+
+
 
 ALTER TABLE Ciclista
 ADD CONSTRAINT CK_CICLISTA_CATEGORIA
@@ -426,7 +439,71 @@ CHECK (codigo > 0) /* Hacer disparador*/
 
 ALTER TABLE Carrera
 ADD CONSTRAINT CK_CARRERA_PAIS
-CHECK (psis = 'venezuela') /* Hacer esta restriccion*/
+CHECK (pais = 'venezuela') /* Hacer esta restriccion*/
+
+ALTER TABLE 
+ADD CONSTRAINT CK_CARRERA_CATEGORIA
+CHECK (categoria BETWEEN 1 AND 5)
+
+ALTER TABLE
+ADD CONSTRAINT CK_CARRERA_PERIODICIDAD
+CHECK (periodicidad > 0) /* Definir el tipo de periodicidad*/
+
+ALTER TABLE Participante
+ADD CONSTRAINT CK_PARTICIPANTE_CONSECUTIVO
+CHECK (id BETWEEN 1 AND 99999)
+
+ALTER TABLE Particpante
+ADD CONSTRAINT CK_PARTICIPANTE_ID
+CHECK (idt IN ('CC', 'CE', 'NT'))
+
+ALTER TABLE Participante
+ADD CONSTRAINT CK_PARTICIPANTE_NID
+CHECK (idn BETWEEN 0 AND 1111111111)
+
+ALTER TABLE Participante
+ADD CONSTRAINT CK_PARTICIPANTE_PAIS
+CHECK (pais = "c") /* Hacer esta restriccion*/
+
+ALTER TABLE Participante
+ADD CONSTRAINT CK_PARTICIPANTE_CORREO
+CHECK (correo LIKE '%@%.%')
+
+ALTER TABLE Ciclista
+ADD CONSTRAINT CK_CICLISTA_CATEGORIA
+CHECK (categoria BETWEEN 1 AND 5)
+
+ALTER TABLE Encuesta 
+ADD CONSTRAINT CK_ENCUESTA_CONSECUTIVA
+CHECK (id BETWEEN 1 AND 99999)
+
+ALTER TABLE Encuesta
+ADD CONSTRAINT CK_ENCUESTA_CRITERIO
+CHECK (criterio IN ('atención', 'tiempo de espera', 'calidad percibida', 'infraestructura')
+
+ALTER TABLE Encuesta 
+ADD CONSTRAINT CK_ENCUESTA_PRESUPUESTO
+CHECK (presupuesto > 0 AND ) //Poner lo de COP
+
+ALTER TABLE Encuesta
+ADD CONSTRAINT CK_ENCUESTA_VALORINCENTIVO
+CHECK (valorIncentivo > 0 AND) //Poner lo de COP
+
+ALTER TABLE Evaluacion
+ADD CONSTRAINT CK_ENCUESTA_ID
+CHECK (id BETWEEN 1 AND 99999)
+
+ALTER TABLE Evaluacion
+ADD CONSTRAINT CK_EVALUACION_PUNTUACION
+CHECK (puntuacion BETWEEN 1 AND 5)
+
+ALTER TABLE Comentario
+ADD CONSTRAINT CK_COMENTARIO_ID
+CHECK (id BETWEEN 1 AND 99999)
+
+ALTER TABLE Comentario
+ADD CONSTRAINT CK_COMENTARIO_IDEVALUACION
+CHECK (idEvaluacion BETWEEN 1 AND 99999)
 
 
 insert into Participante (p_id, idt, idn, pais, correo) values (10001, 'CE', 1010101, 'USA', 'john.doe@gmail.com');
