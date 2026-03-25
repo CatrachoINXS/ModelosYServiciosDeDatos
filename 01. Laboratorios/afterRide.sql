@@ -437,7 +437,7 @@ insert into Segmento (nombre, tipo, ordenInicio, ordenFin) values ('Final-VUE', 
 insert into Version (nombre, fecha, codigo) values ('V2026', date '2026-06-01', 'KOT8R32894SADHFJKAS');
 insert into Version (nombre, fecha, codigo) values ('SUM26', date '2026-08-15', '43SDFGASDFAJKSDHF7');
 
-insert into Registro (numero, fecha, tiempo, posicion, revision, dificultad, comentario, ciclistaId, versionNombre, segmentoNombre) values (101, date '2026-06-02', 4500, 1, 'OK', 'H', 'Excellent', 10005, 'V2026', 'Flat-TDF');
+insert into Registro (numero, fecha, tiempo, posicion, revision, dificultad, comentario, ciclistaId, versionNombre, segmentoNombre) values (101, date '2026-06-02', 4500, 1, 'OK', 'A', 'Excellent', 10005, 'V2026', 'Flat-TDF');
 insert into Registro (numero, fecha, tiempo, posicion, revision, dificultad, comentario, ciclistaId, versionNombre, segmentoNombre) values (102, date '2026-08-16', 3200, 1, 'OK', 'M', 'Clear day', 10001, 'SUM26', 'Sprint-VUE');
 
 insert into Encuesta (eId, criterio, presupuesto, valorIncentivo, fechaInicio, fechaFin) values (200, 'tiempo de espera', 10000, 500, date '2026-01-01', date '2026-01-31');
@@ -652,6 +652,26 @@ BEGIN
     END IF;
 END;
 /
+
+/* DisparadoresOK */
+
+INSERT INTO Registro (numero, fecha, tiempo, posicion, revision, dificultad, comentario, ciclistaId, versionNombre, segmentoNombre) 
+VALUES (NULL, NULL, 4500, 1, 'OK', 'H', 'Excellentisimo', 10005, 'V2026', 'Flat-TDF');
+
+/* DisparadoresNoOK */
+
+
+
+
+
+/* XDisparadores */
+
+/*
+DROP TRIGGER DP_REGISTRO_BI_numero_fecha_automaticos;
+DROP TRIGGER DP_REGISTRO_BU_actualizar_registro;
+DROP TRIGGER DP_FOTOS_BU_actualizar_foto;
+DROP TRIGGER DP_REGISTRO_BD_validacion_eliminacion;
+*/
 
 /*
 ALTER TABLE Ciclista
