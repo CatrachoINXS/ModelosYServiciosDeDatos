@@ -451,7 +451,7 @@ insert into Comentario (cId, contenido, idEvaluacion) values (401, 'Need more ba
 
 
 /* Caso de uso 1: Registrar Resultado
-    A. Adicionando restricciones declarativas /*
+    A. Adicionando restricciones declarativas */
 
 /* Restricciones: Faltó Tconsecutivo y Trevision */
 
