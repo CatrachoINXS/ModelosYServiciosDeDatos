@@ -479,9 +479,33 @@ ALTER TABLE Fotos
 ADD CONSTRAINT CK_FOTOS_FOTO
 CHECK (foto LIKE 'www.%.gif' OR foto LIKE 'www.%.pdf');
 
-/* Tuplas */
-/* TuplasOK */
+/* Tuplas*/
+
+/* TuplasOK (Datos validos por las restricciones)*/
+
+INSERT INTO Registro (numero, fecha, tiempo, posicion, revision, dificultad, comentario, ciclistaId, versionNombre, segmentoNombre)
+VALUES (2006, "2026-03-27", 3500, 2, "OK", "A", "Excelente carrera", 10005, "V2026", "Flat-TDF");
+
+INSERT INTO Fotos (foto, numeroRegistro)
+VALUES ("www.ciclismo-pro-ataque-montana.gif", 500);
+
 /* TuplasNoOK */
+
+/* debe ser numero > 99999*/
+INSERT INTO Registro (numero, fecha, tiempo, posicion, revision, dificultad, comentario, ciclistaId, versionNombre, segmentoNombre)
+VALUES (111111111, "2026-03-2", 2900, 6, "OK", "M", "La peor porqueria", 10001, "SUM26", "Final-VUE");
+
+/* debe ser tiempo > 0*/
+INSERT INTO Registro (numero, fecha, tiempo, posicion, revision, dificultad, comentario, ciclistaId, versionNombre, segmentoNombre)
+VALUES (4999, "2026-02-8", -10000, 1, "OK", "B", "Una gran experiencia", 10002, "V2026", "Flat-TDF");
+
+/* debe ser una dificultad valida ("A", "M", "B")*/
+INSERT INTO Registro (numero, fecha, tiempo, posicion, revision, dificultad, comentario, ciclistaId, versionNombre, segmentoNombre)
+VALUES (501, "2026-01-18", 5000, 3, "OK", "Salchipapa", "Que loco", 10003, "V2026", "Hill-VUE");
+
+/* foto debe empezar en www. y terminar en .gif o .pdf*/
+INSERT INTO Fotos (foto, numeroRegistro)
+VALUES ("whatsapp.com/foto-carreritaLoca,jpg", 101);
 
 /* B. Adicionando acciones de referencia */
 
