@@ -608,12 +608,14 @@ FOREIGN KEY (idEvaluacion) REFERENCES Evaluacion (evId) ON DELETE CASCADE;
 
 /* AccionesOK */
 
-DELETE * FROM Registro
-WHERE ciclistaId = 101;
+DELETE FROM Registro WHERE ciclistaId = 101;
+SELECT * FROM Fotos WHERE ciclistaId = 101;
 
-SELECT * FROM Registro
-WHERE ciclistaId = 101;
-DELETE * FROM 
+DELETE FROM Version WHERE nombre = "V2026";
+SELECT * FROM Registro WHERE versionNombre = "V2026";
+
+DELETE FROM Ciclista WHERE participanteId = 10002;
+SELECT * FROM Registro WHERE ciclistaId = 10002;
 
 /* C. Adicionando disparadores */
 
