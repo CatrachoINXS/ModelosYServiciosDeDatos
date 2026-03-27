@@ -493,11 +493,11 @@ VALUES ("www.ciclismo-pro-ataque-montana.gif", 500);
 
 /* debe ser numero > 99999*/
 INSERT INTO Registro (numero, fecha, tiempo, posicion, revision, dificultad, comentario, ciclistaId, versionNombre, segmentoNombre)
-VALUES (111111111, "2026-03-2", 2900, 6, "OK", "M", "La peor porqueria", 10001, "SUM26", "Final-VUE");
+VALUES (111111111, "2026-03-02", 2900, 6, "OK", "M", "La peor porqueria", 10001, "SUM26", "Final-VUE");
 
 /* debe ser tiempo > 0*/
 INSERT INTO Registro (numero, fecha, tiempo, posicion, revision, dificultad, comentario, ciclistaId, versionNombre, segmentoNombre)
-VALUES (4999, "2026-02-8", -10000, 1, "OK", "B", "Una gran experiencia", 10002, "V2026", "Flat-TDF");
+VALUES (4999, "2026-02-08", -10000, 1, "OK", "B", "Una gran experiencia", 10002, "V2026", "Flat-TDF");
 
 /* debe ser una dificultad valida ("A", "M", "B")*/
 INSERT INTO Registro (numero, fecha, tiempo, posicion, revision, dificultad, comentario, ciclistaId, versionNombre, segmentoNombre)
@@ -691,12 +691,27 @@ END;
 INSERT INTO Registro (numero, fecha, tiempo, posicion, revision, dificultad, comentario, ciclistaId, versionNombre, segmentoNombre) 
 VALUES (NULL, NULL, 4500, 1, 'OK', 'H', 'Excellentisimo', 10005, 'V2026', 'Flat-TDF');
 
+SELECT numero, fecha FROM Registro WHERE tiempo = 5400;
+
+
+INSERT INTO Registro (numero, fecha, tiempo, posicion, revision, dificultad, comentario, ciclistaId, versionNombre, segmentoNombre)
+VALUES (NULL, NULL, 12345, 5, NULL, "B", "Que feo caso", 10006, "SUM26", "Sprint-VUE");
+
+DELETE FROM Registro WHERE tiempo = 12345;
+
 /* DisparadoresNoOK */
 
+UPDATE Registro SET numero = 99999 WHERE numero = 102;
+SELECT numero FROM Registro WHERE tiempo = 3200;
+
+UPDATE Registro SET fecha = "2000-01-01" WHERE numero = 102;
+SELECT fecha FROM Registro WHERE numero = 102;
+
+update Fotos SET numeroRegistro = 999 WHERE numeroRegistro = 102;
+SELECT tiempo FROM Registro WHERE numero = 102;
 
 
-
-
+DELETE FROM Registro WHERE numero = 101;
 /* XDisparadores */
 
 /*
