@@ -632,6 +632,9 @@ FOREIGN KEY (idEvaluacion) REFERENCES Evaluacion (evId) ON DELETE CASCADE;
 
 /* AccionesOK */
 
+/* Eliminaciones para comprobar que las acciones ON DELETE CASCADE
+   eliminan automáticamente los registros dependientes en las tablas relacionadas. */
+
 DELETE FROM Registro WHERE ciclistaId = 101;
 SELECT * FROM Fotos WHERE ciclistaId = 101;
 
@@ -688,30 +691,37 @@ END;
 
 /* DisparadoresOK */
 
+/* Se prueba el trigger BEFORE INSERT asigna automáticamente el número consecutivo del registro y la fecha. */
 INSERT INTO Registro (numero, fecha, tiempo, posicion, revision, dificultad, comentario, ciclistaId, versionNombre, segmentoNombre) 
 VALUES (NULL, NULL, 4500, 1, 'OK', 'H', 'Excellentisimo', 10005, 'V2026', 'Flat-TDF');
-
 SELECT numero, fecha FROM Registro WHERE tiempo = 5400;
 
-
+/* Se prueba el trigger BEFORE INSERT verificando que aunque se envíen valores NULL en numero y fecha, el disparador
+los reemplace automáticamente por el consecutivo y la fecha. */
 INSERT INTO Registro (numero, fecha, tiempo, posicion, revision, dificultad, comentario, ciclistaId, versionNombre, segmentoNombre)
 VALUES (NULL, NULL, 12345, 5, NULL, "B", "Que feo caso", 10006, "SUM26", "Sprint-VUE");
 
+/* Se prueba el trigger BEFORE DELETE valida si el registro puede eliminarse dependiendo de la fecha de creación. Si el
+registro fue creado hace menos de un día, la eliminación es permitida. */
 DELETE FROM Registro WHERE tiempo = 12345;
 
 /* DisparadoresNoOK */
 
+/* Se prueba que el trigger BEFORE UPDATE impida modificar el número del registro, manteniendo el valor anterior. */
 UPDATE Registro SET numero = 99999 WHERE numero = 102;
 SELECT numero FROM Registro WHERE tiempo = 3200;
 
+/* Se prueba que el trigger BEFORE UPDATE impida modificar la fecha original del registro, manteniendo el valor anterior. */
 UPDATE Registro SET fecha = "2000-01-01" WHERE numero = 102;
 SELECT fecha FROM Registro WHERE numero = 102;
 
+/* Se prueba el trigger BEFORE UPDATE de la tabla Fotos, impide modificar el número de registro asociado a la foto, manteniendo el valor anterior. */
 update Fotos SET numeroRegistro = 999 WHERE numeroRegistro = 102;
 SELECT tiempo FROM Registro WHERE numero = 102;
 
-
+/* Se prueba el trigger BEFORE DELETE impide eliminar registros cuya fecha de creación sea mayor a un día respecto a SYSDATE. */
 DELETE FROM Registro WHERE numero = 101;
+
 /* XDisparadores */
 
 /*
