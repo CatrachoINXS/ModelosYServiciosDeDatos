@@ -9,9 +9,9 @@ CREATE TABLE Empleados(
     id NUMBER(5) NOT NULL,
     nombres VARCHAR(30) NOT NULL,
     apellidos VARCHAR(30) NOT NULL,
-    telefono NUMBER(10) NOT NULL,
+    telefono NUMBER(10),
     direccionResidencia VARCHAR(100) NOT NULL,
-    correo VARCHAR(30) NOT NULL,
+    correo VARCHAR(30),
     EPS VARCHAR(30) NOT NULL,
     aseguradora VARCHAR(30) NOT NULL,
     salario VARCHAR(30) NOT NULL,
@@ -25,7 +25,7 @@ CREATE TABLE Cajeros(
 CREATE TABLE Domiciliarios(
     idEmpleado NUMBER(5) NOT NULL,
     pedidosEntregados NUMBER(5) NOT NULL,
-    placaVehiculo VARCHAR(6) NOT NULL,
+    placaVehiculo VARCHAR(6),
     disponiblidad NUMBER(1) NOT NULL);
     
 CREATE TABLE Meseros(
@@ -37,7 +37,7 @@ CREATE TABLE Clientes(
     id NUMBER(5) NOT NULL,
     nombres VARCHAR(30) NOT NULL,
     apellidos VARCHAR(30) NOT NULL,
-    telefono NUMBER(10) NOT NULL,
+    telefono NUMBER(10),
     direccion VARCHAR(100) NOT NULL,
     clienteFiel NUMBER(1) NOT NULL,
     reseña VARCHAR(300),

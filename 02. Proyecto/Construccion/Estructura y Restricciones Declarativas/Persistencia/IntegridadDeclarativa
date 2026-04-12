@@ -1,101 +1,76 @@
 -- TConsecutivo
-
-ALTER TABLE Empleado ADD CONSTRAINT CK_ID_VALIDO_EMPLEADO
+ALTER TABLE Empleados ADD CONSTRAINT CK_ID_VALIDO_EMPLEADO
 CHECK (id BETWEEN 1 AND 99999);
 
-ALTER TABLE Cliente ADD CONSTRAINT CK_ID_VALIDO_CLIENTE
+ALTER TABLE Clientes ADD CONSTRAINT CK_ID_VALIDO_CLIENTE
 CHECK (id BETWEEN 1 AND 99999);
 
-ALTER TABLE Pedido ADD CONSTRAINT CK_ID_VALIDO_PEDIDO
+ALTER TABLE Pedidos ADD CONSTRAINT CK_ID_VALIDO_PEDIDO
 CHECK (id BETWEEN 1 AND 99999);
 
-ALTER TABLE Producto ADD CONSTRAINT CK_ID_VALIDO_PRODUCTO
+ALTER TABLE Productos ADD CONSTRAINT CK_ID_VALIDO_PRODUCTO
 CHECK (id BETWEEN 1 AND 99999);
 
 ALTER TABLE Menu ADD CONSTRAINT CK_ID_VALIDO_MENU
 CHECK (id BETWEEN 1 AND 99999);
 
 -- TTelefono
-
-ALTER TABLE Empleado ADD CONSTRAINT CK_TELEFONO_VALIDO_EMPLEADO
+ALTER TABLE Empleados ADD CONSTRAINT CK_TELEFONO_VALIDO_EMPLEADO
 CHECK (telefono LIKE '3%________' AND LENGTH(telefono) = 10);
 
-ALTER TABLE Cliente ADD CONSTRAINT CK_TELEFONO_VALIDO_CLIENTE
+ALTER TABLE Clientes ADD CONSTRAINT CK_TELEFONO_VALIDO_CLIENTE
 CHECK (telefono LIKE '3%________' AND LENGTH(telefono) = 10);
 
 -- TDireccion
-
-ALTER TABLE Empleado ADD CONSTRAINT CK_DIRECCION_VALIDA_EMPLEADO 
+ALTER TABLE Empleados ADD CONSTRAINT CK_DIRECCION_VALIDA_EMPLEADO 
 CHECK (direccionResidencia LIKE 'Calle %' OR direccionResidencia LIKE 'Carrera %' OR direccionResidencia LIKE 'Diagonal %' OR direccionResidencia LIKE 'Transversal %');
 
-ALTER TABLE Factura ADD CONSTRAINT CK_DIRECCION_VALIDA_FACTURA
+ALTER TABLE Facturas ADD CONSTRAINT CK_DIRECCION_VALIDA_FACTURA
 CHECK (direccion LIKE 'Calle %' OR direccion LIKE 'Carrera %' OR direccion LIKE 'Diagonal %' OR direccion LIKE 'Transversal %');
 
-ALTER TABLE Cliente ADD CONSTRAINT CK_DIRECCION_VALIDA_CLIENTE
+ALTER TABLE Clientes ADD CONSTRAINT CK_DIRECCION_VALIDA_CLIENTE
 CHECK (direccion LIKE 'Calle %' OR direccion LIKE 'Carrera %' OR direccion LIKE 'Diagonal %' OR direccion LIKE 'Transversal %');
 
 -- TCorreo
-
-ALTER TABLE Empleado ADD CONSTRAINT CK_CORREO_VALIDO_EMPLEADO
-CHECK (correo LIKE '%_@_%._%');
-
-ALTER TABLE CLIENTE ADD CONSTRAINT CK_CORREO_VALIDO_CLIENTE /*Crear el atributo correo en la tabla Cliente*/
+ALTER TABLE Empleados ADD CONSTRAINT CK_CORREO_VALIDO_EMPLEADO
 CHECK (correo LIKE '%_@_%._%');
 
 -- TMonedaCOP
-
-ALTER TABLE Empleado ADD CONSTRAINT CK_PLATA_COP 
+ALTER TABLE Empleados ADD CONSTRAINT CK_PLATA_COP 
 CHECK (salario >= 0);
 
-ALTER TABLE Mesero ADD CONSTRAINT CK_PLATA_COP_PROPINA
+ALTER TABLE Meseros ADD CONSTRAINT CK_PLATA_COP_PROPINA
 CHECK (totalPropina >= 0);
 
-ALTER TABLE Factura ADD CONSTRAINT CK_PLATA_COP_DESCUENTO
+ALTER TABLE Facturas ADD CONSTRAINT CK_PLATA_COP_DESCUENTO
 CHECK (descuento >= 0);
 
-ALTER TABLE Factura ADD CONSTRAINT CK_PLATA_COP_PROPINAF
+ALTER TABLE Facturas ADD CONSTRAINT CK_PLATA_COP_PROPINAF
 CHECK (propina >= 0);
 
-ALTER TABLE Factura ADD CONSTRAINT CK_PLATA_COP_PRECIO
+ALTER TABLE Facturas ADD CONSTRAINT CK_PLATA_COP_PRECIO
 CHECK (precio >= 0);
 
-ALTER TABLE Pedido ADD CONSTRAINT CK_PLATA_COP_PEDIDO
+ALTER TABLE Pedidos ADD CONSTRAINT CK_PLATA_COP_PEDIDO
 CHECK (precio >= 0);
 
-ALTER TABLE Producto ADD CONSTRAINT CK_PLATA_COP_PRODUCTO
+ALTER TABLE Productos ADD CONSTRAINT CK_PLATA_COP_PRODUCTO
 CHECK (precio >= 0);
 
 -- TTurnoCaja
-
-ALTER TABLE Cajero ADD CONSTRAINT CK_TURNO_VALIDO 
+ALTER TABLE Cajeros ADD CONSTRAINT CK_TURNO_VALIDO 
 CHECK (NombreColumna IN ('Mañana', 'Tarde', 'Noche'));
 
--- TPlacaVehiculo 
-
-ALTER TABLE Domiciliario ADD CONSTRAINT CK_PLACA_VALIDA 
-CHECK (
-    LENGTH(placaVehiculo) = 6
-    AND UPPER(SUBSTR(placaVehiculo, 1, 1)) BETWEEN 'A' AND 'Z'
-    AND UPPER(SUBSTR(placaVehiculo, 2, 1)) BETWEEN 'A' AND 'Z'
-    AND UPPER(SUBSTR(placaVehiculo, 3, 1)) BETWEEN 'A' AND 'Z'
-    AND SUBSTR(placaVehiculo, 4, 1) BETWEEN '0' AND '9'
-    AND SUBSTR(placaVehiculo, 5, 1) BETWEEN '0' AND '9'
-    AND SUBSTR(placaVehiculo, 6, 1) BETWEEN '0' AND '9'
-);
-
 -- TMetodoPago
-
 ALTER TABLE Paga ADD CONSTRAINT CK_METODO_PAGO_VALIDO 
 CHECK (metodoPago IN ('Efectivo', 'Tarjeta de crédito', 'Tarjeta de débito', 'Transferencia'));
 
 -- TEstadoPago
-
 ALTER TABLE Paga ADD CONSTRAINT CK_ESTADO_VALIDO 
 CHECK (estadoPago IN ('Pendiente', 'Aceptado', 'Rechazado'));
 
 --TnumeroFactura
-
-ALTER TABLE Factura ADD CONSTRAINT CK_FACTURA_VALIDA
+ALTER TABLE Facturas ADD CONSTRAINT CK_FACTURA_VALIDA
 CHECK (
     LENGTH(id) = 15
     AND SUBSTR(id, 1, 1) = 'A'
@@ -115,49 +90,41 @@ CHECK (
 );
 
 --TEstadoFactura
-
-ALTER TABLE Factura ADD CONSTRAINT CK_ESTADO_FACTURA
-CHECK ( estadoFactura IN ('Emitida', 'Anulada', 'Pagada'));
+ALTER TABLE Facturas ADD CONSTRAINT CK_ESTADO_FACTURA
+CHECK (estadoFactura IN ('Emitida', 'Anulada', 'Pagada'));
 
 --TEstadoEntrega
-
-ALTER TABLE Pedido ADD CONSTRAINT CK_ESTADO_PEDIDO
+ALTER TABLE Pedidos ADD CONSTRAINT CK_ESTADO_PEDIDO
 CHECK (estado IN ('Pendiente', 'En camino', 'Entregado'));
 
 --TTamaño
-
-ALTER TABLE Salchipapa ADD CONSTRAINT CK_TAMAÑO_SALCHIPAPA
-CHECK ( tamaño IN ('Personal', 'Mediano', 'Familiar', 'XXL'));
-
-
-/*El descuento no puede ser mayor al precio total*/
-ALTER TABLE Factura ADD CONSTRAINT CK_DESCUENTO_POSITIVO
-CHECK (NOT(descuento > precio));
+ALTER TABLE Salchipapas ADD CONSTRAINT CK_TAMAÑO_SALCHIPAPA
+CHECK (tamaño IN ('Personal', 'Mediano', 'Familiar', 'XXL'));
 
 /*El salario de un empleado debe ser igual o mayor al salario minimo*/
-ALTER TABLE Empleado ADD CONSTRAINT CK_SALARIO_DECENTE
-CHECK (salario >= 1300000);
+ALTER TABLE Empleados ADD CONSTRAINT CK_SALARIO_DECENTE
+CHECK (salario >= 1750905);
 
 /*El stock de un producto no puede ser negativo*/
-ALTER TABLE Producto ADD CONSTRAINT CK_STOCK_POSITIVO
+ALTER TABLE Productos ADD CONSTRAINT CK_STOCK_POSITIVO
 CHECK (NOT(stock < 0));
 
-/*La propina no puede ser mayor al 20 porciento del costo total*/
-ALTER TABLE Factura ADD CONSTRAINT CK_PROPINA_REAL
-CHECK (NOT(propina > 0.20 * precio));
-
 /*El stock de cualquier producto debe ser mayor a cero*/
-ALTER TABLE SeComponeDe ADD CONSTRAINT CK_CANTIAD_POSITIVA
+ALTER TABLE SeComponenDe ADD CONSTRAINT CK_CANTIDAD_POSITIVA
 CHECK (cantidad > 0);
+
+/*El descuento no puede ser mayor al precio total*/
+ALTER TABLE Facturas ADD CONSTRAINT CK_DESCUENTO_POSITIVO
+CHECK (NOT(descuento > precio));
 
 /*Se debe descontar el stock de los productos de un pedido*/
 CREATE OR REPLACE TRIGGER BD_AI
-AFTER INSERT ON Pedido 
+AFTER INSERT ON Pedidos 
 FOR EACH ROW
 BEGIN 
-    UPDATE Producto
+    UPDATE Productos
     SET stock = stock - 1
-    WHERE id = :NEW.idProducto:
+    WHERE id = :NEW.idProducto;
 END;
 /
 
@@ -167,17 +134,17 @@ AFTER UPDATE OF estadoPago ON Paga
 FOR EACH ROW
 BEGIN
     IF :NEW.estadoPago = 'Aceptado' THEN
-        UPDATE Factura
+        UPDATE Facturas
         SET estadoFactura = 'Pagada'
         WHERE id = :NEW.idFactura;
 
-    ELSIF :NEW.estadoPago = 'Pendiente'
-        UPDATE Factura
+    ELSIF :NEW.estadoPago = 'Pendiente' THEN
+        UPDATE Facturas
         SET estadoFactura = 'Emitida'
         WHERE id = :NEW.idFactura;
 
-    ELSIF :NEW.estadoPago = 'Rechazado'
-        UPDATE Factura
+    ELSIF :NEW.estadoPago = 'Rechazado' THEN
+        UPDATE Facturas
         SET estadoFactura = 'Anulado'
         WHERE id = :NEW.idFactura;
     END IF;
@@ -186,11 +153,11 @@ END;
 
 /*cuando un mesero completa una atencion, se le suma al total de propina con la propina de la factura*/
 CREATE OR REPLACE TRIGGER BD_AU
-AFTER UPDATE OF estadoFactura ON Factura
+AFTER UPDATE OF estadoFactura ON Facturas
 FOR EACH ROW
 BEGIN
     IF :NEW.estadoFactura = 'Pagada' AND :OLD.estadoFactura != 'Pagada' THEN
-        UPDATE Mesero
+        UPDATE Meseros
         SET totalPropina = totalPropina + :NEW.propina
         WHERE id = :NEW.idMesero;
     END IF;
@@ -199,13 +166,13 @@ END;
 
 /*Calcular precio de la factura*/
 CREATE OR REPLACE TRIGGER DB_BI
-BEFORE INSERT ON Factura
+BEFORE INSERT ON Facturas
 FOR EACH ROW
 DECLARE
     nprecio NUMBER(20);
 BEGIN
     SELECT SUM(precio) INTO nprecio
-    FROM Pedido
+    FROM Pedidos
     WHERE idFactura = :NEW.id;
 
     :NEW.precio := nprecio - NVL(:NEW.descuento, 0) + NVL(:NEW.propina, 0);

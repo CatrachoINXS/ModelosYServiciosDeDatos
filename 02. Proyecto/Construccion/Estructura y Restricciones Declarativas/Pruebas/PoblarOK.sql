@@ -29,6 +29,9 @@ INSERT INTO Clientes VALUES (1,'Pedro','Navaja',3101112233,'Calle 50C 10 12',1,N
 INSERT INTO Clientes VALUES (2,'Julio Mario','Domingo',3104445566,'Diagonal 15A 20 30',0,'Muy buen servicio, especialmente del mesero, muy amable el muchacho.',8);
 INSERT INTO Clientes VALUES (3,'Gabriel Garcia','Marquez',3117778899,'Calle 80 5 40',1,'Las mejores salchipapas y a un buen precio y... y ya',8);
 
+INSERT INTO Menu VALUES (1,1);
+INSERT INTO Menu VALUES (2,1);
+
 INSERT INTO Productos VALUES (1,'La Nuclear Clásica',13000,'Porción grande de papas fritas con salchicha, queso cheddar y salsa de la casa',12,1);
 INSERT INTO Productos VALUES (2,'ECI',15000,'Porción de papas para aquellos capaces de pasar MYSD',15,1);
 INSERT INTO Productos VALUES (3,'Apocaliptica',22000,'Meteoritos de papa y salchicha sobre papas bañadas en queso',10,1);
@@ -70,8 +73,9 @@ INSERT INTO Ingredientes VALUES (5,'Queso Farmesano');
 INSERT INTO Ingredientes VALUES (5,'Queso Azul');
 INSERT INTO Ingredientes VALUES (5,'Salsa picante');
 
-INSERT INTO Menu VALUES (1,1);
-INSERT INTO Menu VALUES (2,1);
+INSERT INTO Pedidos VALUES (1,'Entregado',18000,1);
+INSERT INTO Pedidos VALUES (2,'Entregado',19000,2);
+INSERT INTO Pedidos VALUES (3,'Entregado',22000,3);
 
 INSERT INTO Facturas VALUES ('A2026-05-000001',DATE '2026-05-10','Carrera 8 7 26','Pagada',NULL,18000,1,1);
 INSERT INTO Facturas VALUES ('A2026-05-000002',DATE '2026-05-11','Carrera 8 7 26','Pagada',1500,22500,2,2);
@@ -82,10 +86,6 @@ INSERT INTO Descuentos VALUES ('A2026-05-000002',1000);
 INSERT INTO Paga VALUES (1,'A2026-05-000001','Efectivo','Aceptado');
 INSERT INTO Paga VALUES (2,'A2026-05-000002','Tarjeta de crédito','Aceptado');
 INSERT INTO Paga VALUES (3,'A2026-05-000003','Transferencia Bancolombia','Pendiente');
-
-INSERT INTO Pedidos VALUES (1,'Entregado',18000,1);
-INSERT INTO Pedidos VALUES (2,'Entregado',19000,2);
-INSERT INTO Pedidos VALUES (3,'Entregado',22000,3);
 
 INSERT INTO SeComponenDe VALUES (1,1,4);
 INSERT INTO SeComponenDe VALUES (2,2,1);
