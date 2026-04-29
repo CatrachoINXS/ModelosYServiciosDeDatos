@@ -689,6 +689,7 @@ BEGIN
 END;
 /
 
+
 /* DisparadoresOK */
 
 /* Se prueba el trigger BEFORE INSERT asigna automáticamente el número consecutivo del registro y la fecha. */
@@ -853,7 +854,6 @@ DELETE FROM mbda.DATA WHERE numero = 5286;*/
 GRANT UPDATE, DELETE ON DATA TO bd1000105286;*/
 
 /*---5---*/
-
 
 
 /*Parte II---CRUDE---*/
