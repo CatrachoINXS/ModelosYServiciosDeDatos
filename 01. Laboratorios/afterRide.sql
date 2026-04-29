@@ -824,3 +824,104 @@ CHECK (id BETWEEN 1 AND 99999);
 ALTER TABLE Comentario
 ADD CONSTRAINT CK_COMENTARIO_IDEVALUACION
 CHECK (idEvaluacion BETWEEN 1 AND 99999);/*
+
+/*Lab 5*/
+
+/*Parte I---1---*/
+/*SELECT * FROM mbda.DATA;*/
+
+/*SELECT COUNT(*)FROM mbda.DATA;*/
+
+
+/*---2---*/
+/*INSERT INTO mbda.DATA (Numero, Pais, Correo, Nombre, Apellido, Nacimiento, Categoria) 
+VALUES (5286, 'Colombia', 'cristian.ortiz-s@mail.escuelaing.edu.co', 'Cristian Camilo', 'Ortiz Sanchez', TO_DATE('2007-09-24', 'YYYY-MM-DD'), 54538693);
+
+INSERT INTO mbda.DATA (Numero, Pais, Correo, Nombre, Apellido, Nacimiento, Categoria) 
+VALUES (5300, 'Colombia', 'juan.perez-t@mail.escuelaing.edu.co', 'Juan Jose', 'Perez Torres', TO_DATE('2006-05-20', 'YYYY-MM-DD'), -5);*/
+
+
+/*---3---*/
+/*UPDATE mbda.DATA SET numero = 1234 WHERE correo = 5300;
+
+DELETE FROM mbda.DATA WHERE numero = 5286;*/
+
+
+/*---4---*/
+/*GRANT UPDATE, DELETE ON DATA TO bd1000105300;
+
+GRANT UPDATE, DELETE ON DATA TO bd1000105286;*/
+
+/*---5---*/
+
+
+
+/*Parte II---CRUDE---*/
+CREATE OR REPLACE PACKAGE PC_REGISTRO IS
+PROCEDURE adicionarRegistro(
+        tiempo IN NUMBER,
+        posicion IN NUMBER,
+        revision IN VARCHAR,
+        dificultad IN VARCHAR,
+        comentario IN VARCHAR,
+        ciclistaId IN NUMBER,
+        versionNombre IN VARCHAR,
+        segmentoNombre IN VARCHAR);
+        
+    PROCEDURE consultar5MasCortos(
+        resultado OUT SYS_REFCURSOR);
+        
+END PC_REGISTRO;
+/
+
+/*---CRUDI---*/
+CREATE OR REPLACE PACKAGE BODY PC_REGISTRO IS
+PROCEDURE adicionarRegistro(
+    tiempo IN NUMBER,
+    posicion IN NUMBER,
+    revision IN VARCHAR,
+    dificultad IN VARCHAR,
+    comentario IN VARCHAR,
+    ciclistaId IN NUMBER,
+    versionNombre IN VARCHAR,
+    segmentoNombre IN VARCHAR) 
+    
+    IS BEGIN INSERT INTO Registro (tiempo, posicion, revision, dificultad, comentario, ciclistaId, versionNombre, segmentoNombre)
+    VALUES (tiempo, posicion, revision, dificultad, comentario, ciclistaId, versionNombre, segmentoNombre);
+        COMMIT;
+    EXCEPTION
+        WHEN OTHERS THEN
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20001, 'Error al registrar: ' || SQLERRM);
+    END adicionarRegistro;
+
+    PROCEDURE consultar5MasCortos(
+        resultado OUT SYS_REFCURSOR
+    ) IS
+    BEGIN
+        OPEN resultado FOR
+            SELECT segmentoNombre AS Segmento, tiempo
+            FROM Registro
+            ORDER BY tiempo ASC
+            FETCH NEXT 5 ROWS ONLY;
+    END consultar5MasCortos;
+
+END PC_REGISTRO;
+/
+
+/*---XCRUD---*/
+DROP PACKAGE PC_REGISTRO;
+
+/*---CRUDOK---*/
+
+EXECUTE PC_REGISTRO.ad_registro(3800, 5, 'OK', 'B', 'Pista mala', 10010, 'V2026', 'Sprint-VUE');
+EXECUTE PC_REGISTRO.ad_registro(2950, 1, 'OK', 'A', 'Nuevo record', 10011, 'V2026', 'Hill-TDF');
+EXECUTE PC_REGISTRO.ad_registro(4100, 8, 'OK', 'M', 'Desviacion de ruta', 10012, 'SUM26', 'Flat-TDF');
+EXECUTE PC_REGISTRO.ad_registro(3200, 2, 'OK', 'A', 'Buena cadencia', 10013, 'SUM26', 'Final-VUE');
+EXECUTE PC_REGISTRO.ad_registro(4500, 12, 'OK', 'B', 'Pinchazo menor', 10014, 'V2026', 'Sprint-VUE');
+
+/*---CRUDNOOK---*/
+
+EXECUTE PC_REGISTRO.ad_registro(3600, 3, 'OK', 'X', 'Dificultad erronea', 10010, 'V2026', 'Hill-TDF');
+EXECUTE PC_REGISTRO.ad_registro(3600, 3, 'OK', 'A', 'Version inextistente', 10010, 'V-FALSA', 'Hill-TDF');
+EXECUTE PC_REGISTRO.ad_registro(-500, 1, 'OK', 'A', 'Negativo', 10012, 'V2026', 'Sprint-VUE');
