@@ -749,73 +749,186 @@ DELETE FROM mbda.DATA WHERE numero = 5286;*/
 /*---5---*/
 
 
-/*Parte II---CRUDI---*/
+/*Parte II---CRUDE---*/
 
 CREATE OR REPLACE
-PROCEDURE adicionarRegistro(xTiempo IN NUMBER, xPosicion IN NUMBER, xRevision IN VARCHAR, xDificultad IN VARCHAR,
-            xComentario IN VARCHAR, xCiclistaId IN NUMBER, xVersionNombre IN VARCHAR, xSegmentoNombre IN VARCHAR)
-IS
-BEGIN
-    INSERT INTO Registros(tiempo, posicion, revision, dificultad, comentario, ciclistaId, versionNombre, segmentoNombre)
-    VALUES(xTiempo, xPosicion, xRevision, xDificultad, xComentario, xCiclistaId, xVersionNombre, xSegmentoNombre);
-    COMMIT;
-EXCEPTION
-    WHEN OTHERS THEN
-        ROLLBACK;
-        RAISE_APPLICATION_ERROR(-20999, 'Error al registrar: ' || SQLERRM);
+PACKAGE PC_REGISTRO 
+AS
+    PROCEDURE adicionar(xTiempo IN NUMBER, xPosicion IN NUMBER, xRevision IN VARCHAR, xDificultad IN VARCHAR,
+            xComentario IN VARCHAR, xCiclistaId IN NUMBER, xVersionNombre IN VARCHAR, xSegmentoNombre IN VARCHAR);
+            
+    PROCEDURE Modificar(xNumero IN VARCHAR, xRevision IN VARCHAR, xComentario IN VARCHAR);
+    
+    PROCEDURE Consultar(xNumero IN VARCHAR, resultado OUT SYS_REFCURSOR);
+    
+    PROCEDURE cincoSegmentosMasCortos(resultado OUT SYS_REFCURSOR);
 END;
 /
     
-CREATE OR REPLACE
-PROCEDURE ModificarRegistro(xNumero IN VARCHAR, xRevision IN VARCHAR, xComentario IN VARCHAR)
-IS
-BEGIN
-    UPDATE Registros SET revision = xRevision, comentario = xComentario WHERE numero = xNumero;
-    IF (SQL%ROWCOUNT = 0) THEN
-        RAISE_APPLICATION_ERROR(-20001, 'Registro no encontrado');
-    END IF;
-    COMMIT;
-EXCEPTION
-    WHEN OTHERS THEN
-        ROLLBACK;
-        RAISE_APPLICATION_ERROR(-20999, SQLERRM);
-END;
-/
+-- CRUDI
     
 CREATE OR REPLACE
-PROCEDURE cincoSegmentosMasCortos(resultado OUT SYS_REFCURSOR) 
-IS
-BEGIN
-    OPEN resultado FOR
-        SELECT segmentoNombre AS Segmentos, tiempo
-        FROM Registros
-        ORDER BY tiempo ASC
-        FETCH NEXT 5 ROWS ONLY;
-END;
+PACKAGE BODY PC_REGISTRO
+AS
+    PROCEDURE adicionar(xTiempo IN NUMBER, xPosicion IN NUMBER, xRevision IN VARCHAR, xDificultad IN VARCHAR,
+                xComentario IN VARCHAR, xCiclistaId IN NUMBER, xVersionNombre IN VARCHAR, xSegmentoNombre IN VARCHAR)
+    IS
+    BEGIN
+        INSERT INTO Registros(tiempo, posicion, revision, dificultad, comentario, ciclistaId, versionNombre, segmentoNombre)
+        VALUES(xTiempo, xPosicion, xRevision, xDificultad, xComentario, xCiclistaId, xVersionNombre, xSegmentoNombre);
+        COMMIT;
+    EXCEPTION
+        WHEN OTHERS THEN
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20999, 'Error al registrar: ' || SQLERRM);
+    END;
+    
+    PROCEDURE Modificar(xNumero IN VARCHAR, xRevision IN VARCHAR, xComentario IN VARCHAR)
+    IS
+    BEGIN
+        UPDATE Registros SET revision = xRevision, comentario = xComentario WHERE numero = xNumero;
+        IF (SQL%ROWCOUNT = 0) THEN
+            RAISE_APPLICATION_ERROR(-20001, 'Registro no encontrado');
+        END IF;
+        COMMIT;
+    EXCEPTION
+        WHEN OTHERS THEN
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20999, SQLERRM);
+    END;
+    
+    PROCEDURE Consultar(xNumero IN VARCHAR, resultado OUT SYS_REFCURSOR)
+    IS
+    BEGIN
+        OPEN resultado FOR
+        SELECT * FROM Registros WHERE numero = xNumero;
+    END;
+    
+    PROCEDURE cincoSegmentosMasCortos(resultado OUT SYS_REFCURSOR) 
+    IS
+    BEGIN
+        OPEN resultado FOR
+            SELECT segmentoNombre AS Segmentos, tiempo
+            FROM Registros
+            ORDER BY tiempo ASC
+            FETCH NEXT 5 ROWS ONLY;
+    END;
+END PC_REGISTRO;
 /
 
 /*---XCRUD---*/
-
-DROP PROCEDURE adicionarRegistro;
-DROP PROCEDURE ModificarRegistro;
-DROP PROCEDURE cincoSegmentosMasCortos;
-
+/*
+DROP PACKAGE PC_REGISTRO;
+*/
 /*---CRUDOK---*/
 
-EXECUTE adicionarRegistro(3800, 5, 'OK', 'B', 'Pista mala', 10005, 'V2026', 'Sprint-VUE');
-EXECUTE adicionarRegistro(2950, 1, 'OK', 'A', 'Nuevo record', 12345, 'V2026', 'Hill-TDF');
-EXECUTE modificarRegistro(4,'Modificacion', 'Modificacion4');
-EXECUTE modificarRegistro(5,'Modificacion2Noc', 'Modificacion5');
+EXECUTE PC_REGISTRO.adicionar(3800, 5, 'OK', 'B', 'Comentariox1', 10005, 'V2026', 'Sprint-VUE');
+EXECUTE PC_REGISTRO.adicionar(2950, 1, 'OK', 'A', 'Comentariox2', 12345, 'V2026', 'Hill-TDF');
+EXECUTE PC_REGISTRO.modificar(6,'Modificacion', 'Modificacion4');
+EXECUTE PC_REGISTRO.modificar(7,'Modificacion2Noc', 'Modificacion5');
 
 VARIABLE cursorOK REFCURSOR;
 BEGIN
-    cincoSegmentosMasCortos(:cursorOK);
+    PC_REGISTRO.cincoSegmentosMasCortos(:cursorOK);
 END;
 /
 PRINT cursorOK;
 
 /*---CRUDNoOK---*/
 
-EXECUTE adicionarRegistro(3600, 3, 'OK', 'X', 'Dificultad erronea', 10010, 'V2026', 'Hill-TDF');
-EXECUTE modificarRegistro(3600, 3, 'OK', 'A', 'Versiones inextistente', 10010, 'V-FALSA', 'Hill-TDF');
-EXECUTE adicionarRegistro(-500, 1, 'OK', 'A', 'Negativo', 10012, 'V2026', 'Sprint-VUE');
+EXECUTE PC_REGISTRO.adicionar(3600, 3, 'OK', 'X', 'Dificultad erronea', 10010, 'V2026', 'Hill-TDF');
+EXECUTE PC_REGISTRO.modificar(3600, 3, 'OK', 'A', 'Versiones inextistente', 10010, 'V-FALSA', 'Hill-TDF');
+EXECUTE PC_REGISTRO.adicionar(-500, 1, 'OK', 'A', 'Negativo', 10012, 'V2026', 'Sprint-VUE');
+
+--ActoresE
+
+CREATE OR REPLACE
+PACKAGE PA_PARTICIPANTE 
+AS
+    PROCEDURE adicionarRegistro(xTiempo IN NUMBER, xPosicion IN NUMBER, xRevision IN VARCHAR, xDificultad IN VARCHAR,
+            xComentario IN VARCHAR, xCiclistaId IN NUMBER, xVersionNombre IN VARCHAR, xSegmentoNombre IN VARCHAR);
+            
+    PROCEDURE ModificarRegistro(xNumero IN VARCHAR, xRevision IN VARCHAR, xComentario IN VARCHAR);
+    
+    PROCEDURE consultarRegistro(xNumero IN VARCHAR, resultado OUT SYS_REFCURSOR);
+    
+    PROCEDURE consultarCincoSegmentosMasCortos(resultado OUT SYS_REFCURSOR);
+END;
+/
+
+CREATE OR REPLACE
+PACKAGE PA_PERSONA 
+AS
+    PROCEDURE consultarCincoSegmentosMasCortos(resultado OUT SYS_REFCURSOR);
+END;
+/
+
+--ActoresI
+
+CREATE OR REPLACE 
+PACKAGE BODY PA_PARTICIPANTE AS
+
+    PROCEDURE adicionarRegistro(xTiempo IN NUMBER, xPosicion IN NUMBER, xRevision IN VARCHAR, xDificultad IN VARCHAR,
+            xComentario IN VARCHAR, xCiclistaId IN NUMBER, xVersionNombre IN VARCHAR, xSegmentoNombre IN VARCHAR) IS
+    BEGIN
+        PC_REGISTRO.adicionar(xTiempo, xPosicion, xRevision, xDificultad, xComentario, xCiclistaId, xVersionNombre, xSegmentoNombre);
+    END;
+
+    PROCEDURE modificarRegistro(xNumero IN VARCHAR, xRevision IN VARCHAR, xComentario IN VARCHAR) IS
+    BEGIN
+        PC_REGISTRO.modificar(xNumero, xRevision, xComentario);
+    END;
+    
+    PROCEDURE consultarRegistro(xNumero IN VARCHAR, resultado OUT SYS_REFCURSOR) IS
+    BEGIN
+        PC_REGISTRO.consultar(xNumero, resultado);
+    END;
+
+    PROCEDURE consultarCincoSegmentosMasCortos(resultado OUT SYS_REFCURSOR) IS
+    BEGIN
+        PC_REGISTRO.cincoSegmentosMasCortos(resultado);
+    END;
+
+END PA_PARTICIPANTE;
+/
+
+CREATE OR REPLACE 
+PACKAGE BODY PA_PERSONA AS
+
+    PROCEDURE consultarCincoSegmentosMasCortos(resultado OUT SYS_REFCURSOR) IS
+    BEGIN
+        PC_REGISTRO.cincoSegmentosMasCortos(resultado);
+    END;
+
+END PA_PERSONA;
+/
+
+--CrearRoles
+
+CREATE ROLE ROL_PARTICIPANTE;
+CREATE ROLE ROL_PERSONA;
+
+--Seguridad
+
+GRANT EXECUTE ON PA_PARTICIPANTE TO ROL_PARTICIPANTE;
+GRANT EXECUTE ON PA_PERSONA TO ROL_PERSONA;
+GRANT EXECUTE ON PC_REGISTRO TO ROL_PARTICIPANTE;
+GRANT EXECUTE ON PC_REGISTRO TO ROL_PERSONA;
+
+GRANT ROL_PARTICIPANTE TO bd1000105300;
+GRANT ROL_PERSONA TO bd1000105286;
+    
+--xSeguridad
+
+/*
+REVOKE ROL_PARTICIPANTE FROM bd1000105300;
+REVOKE ROL_PERSONA FROM bd1000105286;
+
+REVOKE EXECUTE ON PA_PARTICIPANTE FROM ROL_PARTICIPANTE;
+REVOKE EXECUTE ON PA_PERSONA FROM ROL_PERSONA;
+REVOKE EXECUTE ON PC_REGISTRO FROM ROL_PARTICIPANTE;
+REVOKE EXECUTE ON PC_REGISTRO FROM ROL_PERSONA;
+
+DROP ROLE ROL_PARTICIPANTE;
+DROP ROLE ROL_PERSONA;
+*/
