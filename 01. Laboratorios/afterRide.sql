@@ -932,3 +932,30 @@ REVOKE EXECUTE ON PC_REGISTRO FROM ROL_PERSONA;
 DROP ROLE ROL_PARTICIPANTE;
 DROP ROLE ROL_PERSONA;
 */
+
+/*PRUEBA DE ACEPTACION*/
+EXECUTE PA_PARTICIPANTE.adicionarRegistro(3100, 1, 'Sin Novedad', 'A', 'Récord histórico', 10005, 'V2026', 'Flat-TDF');
+
+VARIABLE rc1 REFCURSOR;
+EXECUTE PA_PARTICIPANTE.consultarCincoSegmentosMasCortos(:rc1);
+PRINT rc1;
+
+EXECUTE PA_PARTICIPANTE.adicionarRegistro(-50, 2, 'Error', 'M', 'Fallo reloj', 10001, 'V2026', 'Hill-TDF');
+
+EXECUTE PA_PARTICIPANTE.adicionarRegistro(3600, 3, 'Revisado', 'Z', 'Dificultad falsa', 10002, 'V2026', 'Flat-TDF');
+
+EXECUTE PA_PARTICIPANTE.modificarRegistro(101, 'OK', 'Rendimiento excepcional en plano');
+
+VARIABLE rc2 REFCURSOR;
+EXECUTE PA_PARTICIPANTE.consultarRegistro(101, :rc2);
+PRINT rc2;
+
+VARIABLE rc3 REFCURSOR;
+EXECUTE PA_PERSONA.consultarCincoSegmentosMasCortos(:rc3);
+PRINT rc3;
+
+EXECUTE PA_PARTICIPANTE.adicionarRegistro(3400, 4, 'Sospechoso', 'B', 'Ciclista no existe', 99999, 'V2026', 'Hill-TDF');
+
+VARIABLE rc4 REFCURSOR;
+EXECUTE PA_PARTICIPANTE.consultarCincoSegmentosMasCortos(:rc4);
+PRINT rc4;
