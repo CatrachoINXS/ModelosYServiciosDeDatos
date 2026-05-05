@@ -27,4 +27,4 @@ CREATE INDEX indice_telefono_clientes
 ON Clientes (telefono);
 
 CREATE INDEX indice_direccion_clientes
-ON Clientes (direccion)
+ON Clientes (direccion);
