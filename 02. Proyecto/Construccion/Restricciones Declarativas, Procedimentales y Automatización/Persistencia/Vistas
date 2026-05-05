@@ -27,7 +27,7 @@ JOIN Clientes c ON p.idCliente = c.id
 LEFT JOIN Facturas f ON f.idPedido = p.id;
 
 /*Productos mas vendidos*/
-CREATE OR REPLACE VIEW top_productos AS
+CREATE OR REPLACE VIEW productos_mas_vendidos AS
 SELECT p.id AS idProducto, p.nombre AS Nombre,
        SUM(sc.cantidad) AS totalVendidos,
        SUM(sc.cantidad * p.precio) AS totalGanancias
