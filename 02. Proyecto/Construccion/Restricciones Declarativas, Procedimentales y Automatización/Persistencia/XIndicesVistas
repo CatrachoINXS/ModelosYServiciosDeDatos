@@ -1,1 +1,8 @@
+/*
+SalchiTask
+Autores: Juan Jose Perez Torres, Cristian Camilo Ortiz Sánchez
+Fecha: 2026-05-05
+Descripción: Eliminación de indices y vistas CICLO1
+*/
 
+DROP INDEX nombre_del_indice;
