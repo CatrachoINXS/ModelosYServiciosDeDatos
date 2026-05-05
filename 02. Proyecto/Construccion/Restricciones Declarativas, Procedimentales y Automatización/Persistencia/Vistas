@@ -1,0 +1,35 @@
+/*
+SalchiTask
+Autores: Juan Jose Perez Torres, Cristian Camilo Ortiz Sánchez
+Fecha: 2026-05-05
+Descripción: Creacion de vistas CICLO1
+*/
+
+/*Consultar informacion basica de un empleado sin dar datos privados*/
+CREATE OR REPLACE VIEW datos_empleado AS
+SELECT id, nombres, apellidos
+FROM Empleados;
+
+/*Consultar informacion basica de un cliente sin dar datos privados*/
+CREATE OR REPLACE VIEW datos_cliente AS
+SELECT id, nombres, apellidos
+FROM Clientes;
+
+/*Datos de un pedido*/
+CREATE OR REPLACE VIEW datos_pedido 
+AS SELECT p.id AS idPedido, p.precio AS Total, p.estado AS Estado, 
+
+          c.id AS idCliente, c.nombres AS Nombre, c.apellidos AS Apellido,
+
+          f.fechaExpedicion AS Fecha
+FROM Pedidos p 
+JOIN Clientes c ON p.idCliente = c.id
+LEFT JOIN Facturas f ON f.idPedido = p.id;
+
+/*Productos mas vendidos*/
+CREATE OR REPLACE VIEW productos_mas_vendidos AS
+SELECT p.id AS idProducto, p.nombre AS Nombre,
+       SUM(sc.cantidad) AS totalVendidos,
+       SUM(sc.cantidad * p.precio) AS totalGanancias
+FROM SeComponeDe sc JOIN Productos p ON sc.idProducto = p.id
+GROUP BY p.id, pr.nombre;

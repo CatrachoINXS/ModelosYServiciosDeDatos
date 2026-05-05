@@ -1,0 +1,30 @@
+/*
+SalchiTask
+Autores: Juan Jose Perez Torres, Cristian Camilo Ortiz Sánchez
+Fecha: 2026-05-05
+Descripción: Creacion de indices CICLO1
+*/
+
+CREATE INDEX indice_nombre_apellido_empleados
+ON Empleados (nombres, apellidos);
+
+CREATE UNIQUE INDEX indice_correo_empleados
+ON Empleados (correo);
+
+CREATE INDEX indice_fechaExpedicion_factura
+ON Facturas (fechaExpedicion);
+
+CREATE INDEX indice_estadoPedido_cliente
+ON Pedidos (idCliente, estado);
+
+CREATE UNIQUE INDEX indice_nombre_productos
+ON Productos (nombre);
+
+CREATE INDEX indice_nombre_apellido_clientes
+ON Clientes (nombres, apellidos);
+
+CREATE UNIQUE INDEX indice_telefono_clientes
+ON Clientes (telefono);
+
+CREATE UNIQUE INDEX indice_direccion_clientes
+ON Clientes (direccion);
