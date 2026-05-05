@@ -16,5 +16,8 @@ DROP INDEX indice_telefono_clientes;
 DROP INDEX indice_direccion_clientes;
 
 /*Eliminación de vistas*/
-
+DROP VIEW datos_empleado;
+DROP VIEW datos_cliente;
+DROP VIEW datos_pedido;
+DROP VIEW productos_mas_vendidos;
 
