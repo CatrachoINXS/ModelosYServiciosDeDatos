@@ -5,4 +5,15 @@ Fecha: 2026-05-05
 Descripción: Eliminación de indices y vistas CICLO1
 */
 
-DROP INDEX nombre_del_indice;
+DROP INDEX indice_nombre_apellido_empleados;
+DROP INDEX indice_nombre_correo_empleados;
+DROP INDEX indice_nombre_fechaExpedicion_factura;
+DROP INDEX indice_estadoPedido_cliente;
+DROP INDEX indice_nombre_nombre_productos;
+DROP INDEX indice_nombre_apellido_clientes;
+DROP INDEX indice_telefono_clientes;
+DROP INDEX indice_direccion_clientes;
+
+
+
+
