@@ -6,11 +6,25 @@ Descripción: Creacion de indices CICLO1
 */
 
 CREATE INDEX indice_nombre_apellido_empleados
-ON Empleado (nombres, apellidos);
+ON Empleados (nombres, apellidos);
 
 CREATE UNIQUE INDEX indice_correo_empleados
-ON Empleado (correo);
+ON Empleados (correo);
 
 CREATE INDEX indice_fechaExpedicion_factura
-ON Factura (fechaExpedicion);
+ON Facturas (fechaExpedicion);
 
+CREATE INDEX indice_estadoPedido_cliente
+ON Pedidos (idCliente, estado);
+
+CREATE INDEX indice_nombre_productos
+ON Productos (nombre);
+
+CREATE INDEX indice_nombre_apellido_clientes
+ON Clientes (nombres, apellidos);
+
+CREATE INDEX indice_telefono_clientes
+ON Clientes (telefono);
+
+CREATE INDEX indice_direccion_clientes
+ON Clientes (direccion)
