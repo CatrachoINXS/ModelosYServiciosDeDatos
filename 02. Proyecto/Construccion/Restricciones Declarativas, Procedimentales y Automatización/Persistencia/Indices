@@ -5,3 +5,12 @@ Fecha: 2026-05-05
 Descripción: Creacion de indices CICLO1
 */
 
+CREATE INDEX indice_nombre_apellido_empleados
+ON Empleado (nombres, apellidos);
+
+CREATE UNIQUE INDEX indice_correo_empleados
+ON Empleado (correo);
+
+CREATE INDEX indice_fechaExpedicion_factura
+ON Factura (fechaExpedicion);
+
