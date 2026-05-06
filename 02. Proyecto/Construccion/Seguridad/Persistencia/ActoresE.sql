@@ -6,9 +6,8 @@ Descripción: Especificación de los paquetes de actores CICLO1
 */
 
 /*
- * Paquete PK_Cajero
+ * Paquete PK_CAJERO
  */
-
 CREATE OR REPLACE PACKAGE PK_CAJERO IS
 
     PROCEDURE clienteAdicionar(xCliId IN NUMBER);
@@ -34,6 +33,9 @@ CREATE OR REPLACE PACKAGE PK_CAJERO IS
 END PK_CAJERO;
 /
 
+/*
+ * Paquete PK_ADMINISTRADOR
+ */
 CREATE OR REPLACE PACKAGE PK_ADMINISTRADOR IS
 
     PROCEDURE productoAdicionar(xCliId IN NUMBER);
@@ -49,6 +51,9 @@ CREATE OR REPLACE PACKAGE PK_ADMINISTRADOR IS
 END PK_ADMINISTRADOR;
 /
 
+/*
+ * Paquete PK_GERENTE
+ */
 CREATE OR REPLACE PACKAGE PK_GERENTE IS
 
     FUNCTION productosMasApetecidos RETURN SYS_REFCURSOR;
