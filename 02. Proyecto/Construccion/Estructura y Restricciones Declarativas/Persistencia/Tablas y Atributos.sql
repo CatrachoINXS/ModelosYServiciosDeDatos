@@ -14,7 +14,7 @@ CREATE TABLE Empleados(
     correo VARCHAR(30),
     EPS VARCHAR(30) NOT NULL,
     aseguradora VARCHAR(30) NOT NULL,
-    salario VARCHAR(30) NOT NULL,
+    salario NUMBER(20) NOT NULL,
     fechaIngreso DATE NOT NULL);
     
 CREATE TABLE Cajeros(

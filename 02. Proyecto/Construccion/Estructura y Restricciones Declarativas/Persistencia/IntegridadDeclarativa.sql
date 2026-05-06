@@ -23,13 +23,17 @@ CHECK (telefono LIKE '3%________' AND LENGTH(telefono) = 10);
 
 -- TDireccion
 ALTER TABLE Empleados ADD CONSTRAINT CK_DIRECCION_VALIDA_EMPLEADO 
-CHECK (direccionResidencia LIKE 'Calle %' OR direccionResidencia LIKE 'Carrera %' OR direccionResidencia LIKE 'Diagonal %' OR direccionResidencia LIKE 'Transversal %');
+CHECK (direccionResidencia LIKE 'Calle %' OR direccionResidencia 
+        LIKE 'Carrera %' OR direccionResidencia LIKE 'Diagonal %' 
+        OR direccionResidencia LIKE 'Transversal %');
 
 ALTER TABLE Facturas ADD CONSTRAINT CK_DIRECCION_VALIDA_FACTURA
-CHECK (direccion LIKE 'Calle %' OR direccion LIKE 'Carrera %' OR direccion LIKE 'Diagonal %' OR direccion LIKE 'Transversal %');
+CHECK (direccion LIKE 'Calle %' OR direccion LIKE 'Carrera %' 
+        OR direccion LIKE 'Diagonal %' OR direccion LIKE 'Transversal %');
 
 ALTER TABLE Clientes ADD CONSTRAINT CK_DIRECCION_VALIDA_CLIENTE
-CHECK (direccion LIKE 'Calle %' OR direccion LIKE 'Carrera %' OR direccion LIKE 'Diagonal %' OR direccion LIKE 'Transversal %');
+CHECK (direccion LIKE 'Calle %' OR direccion LIKE 'Carrera %' 
+        OR direccion LIKE 'Diagonal %' OR direccion LIKE 'Transversal %');
 
 -- TCorreo
 ALTER TABLE Empleados ADD CONSTRAINT CK_CORREO_VALIDO_EMPLEADO
@@ -116,6 +120,3 @@ CHECK (cantidad > 0);
 /*El descuento no puede ser mayor al precio total*/
 ALTER TABLE Facturas ADD CONSTRAINT CK_DESCUENTO_POSITIVO
 CHECK (NOT(descuento > precio));
-
-
-
