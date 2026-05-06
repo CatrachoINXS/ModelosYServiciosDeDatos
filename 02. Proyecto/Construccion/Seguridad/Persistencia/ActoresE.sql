@@ -25,9 +25,9 @@ CREATE OR REPLACE PACKAGE PK_CAJERO IS
     PROCEDURE facturaEliminar(xFacId IN NUMBER);
     FUNCTION facturaConsultar(xFacId IN NUMBER) RETURN SYS_REFCURSOR;
 
-    PROCEDURE pagoAdicionar(xPedId IN NUMBER);
-    PROCEDURE pagoModificar(xPedId IN NUMBER);
-    FUNCTION pagoConsultar(xPedId IN NUMBER) RETURN SYS_REFCURSOR;
+    PROCEDURE pedidoAdicionar(xPedId IN NUMBER);
+    PROCEDURE pedidoModificar(xPedId IN NUMBER);
+    FUNCTION pedidoConsultar(xPedId IN NUMBER) RETURN SYS_REFCURSOR;
 
     FUNCTION preciosProductos RETURN SYS_REFCURSOR;
 
