@@ -5,14 +5,14 @@ Fecha: 2026-03-22
 Descripción: Ingreso de datos correctos. (Sin automatización) CICLO1
 */
 
-INSERT INTO Empleados VALUES (1,'Juan Jose','Perez Torres',3001234567,'Calle 10A 5 20','juanito@gmail.com','Sura','SegurosBolivar','2000000',DATE '2023-01-10');
-INSERT INTO Empleados VALUES (2,'Cristian Camilo','Ortiz Sanchez',3144790157,'Diagonal 4B BIS 29 23','camilin@gmail.com','Coosalud','SegurosBolivar','1600000',DATE '2022-06-15');
-INSERT INTO Empleados VALUES (3,'Carlos LLeras','Restrepo',3015557788,'Calle 25 7 33','carlos32@gmail.com','Famisanar','SegurosBolivar','1400000',DATE '2024-02-20');
-INSERT INTO Empleados VALUES (4,'Shakira','Mebarak',3131112233,'Carrera 20B 79 150','shakira425@gmail.com','Famisanar','Allianz','1300000',DATE '2020-01-15');
-INSERT INTO Empleados VALUES (5,'Juan Esteban','Salazar',3002223344,'Calle 10 43 21','juanes5643@gmail.com','Famisanar','SegurosBolivar','1200000',DATE '2025-03-10');
-INSERT INTO Empleados VALUES (6,'James','Rodriguez',3113334455,'Calle 100 11B 27','james65@gmail.com','NuevaEPS','SegurosBolivar','1200000',DATE '2021-07-20');
-INSERT INTO Empleados VALUES (7,'Yaneth','Sanchez Castillo',3214445566,'Carrera 70 #45-12','yaneths027@gmail.com','Coosalud','Allianz','1200000',DATE '2026-02-18');
-INSERT INTO Empleados VALUES (8,'Juan','Arias',3335556677,'Calle 12 #34-56','maluma345@gmail.com','Sura','SegurosBolivar','1200000',DATE '2021-11-05');
+INSERT INTO Empleados VALUES (1,'Juan Jose','Perez Torres',3001234567,'Calle 10A 5 20','juanito@gmail.com','Sura','SegurosBolivar',2000000,DATE '2023-01-10');
+INSERT INTO Empleados VALUES (2,'Cristian Camilo','Ortiz Sanchez',3144790157,'Diagonal 4B BIS 29 23','camilin@gmail.com','Coosalud','SegurosBolivar',1750905,DATE '2022-06-15');
+INSERT INTO Empleados VALUES (3,'Carlos LLeras','Restrepo',3015557788,'Calle 25 7 33','carlos32@gmail.com','Famisanar','SegurosBolivar',1750905,DATE '2024-02-20');
+INSERT INTO Empleados VALUES (4,'Shakira','Mebarak',3131112233,'Carrera 20B 79 150','shakira425@gmail.com','Famisanar','Allianz',1750905,DATE '2020-01-15');
+INSERT INTO Empleados VALUES (5,'Juan Esteban','Salazar',3002223344,'Calle 10 43 21','juanes5643@gmail.com','Famisanar','SegurosBolivar',1750905,DATE '2025-03-10');
+INSERT INTO Empleados VALUES (6,'James','Rodriguez',3113334455,'Calle 100 11B 27','james65@gmail.com','NuevaEPS','SegurosBolivar',1750905,DATE '2021-07-20');
+INSERT INTO Empleados VALUES (7,'Yaneth','Sanchez Castillo',3214445566,'Carrera 70 #45-12','yaneths027@gmail.com','Coosalud','Allianz',1750905,DATE '2026-02-18');
+INSERT INTO Empleados VALUES (8,'Juan','Arias',3335556677,'Calle 12 #34-56','maluma345@gmail.com','Sura','SegurosBolivar',1750905,DATE '2021-11-05');
 
 INSERT INTO Cajeros VALUES (1,'Mañana',120);
 INSERT INTO Cajeros VALUES (7,'Tarde',95);
