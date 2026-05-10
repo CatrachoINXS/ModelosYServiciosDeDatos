@@ -1,7 +1,7 @@
 /*
 SalchiTask
 Autores: Juan Jose Perez Torres, Cristian Camilo Ortiz Sánchez
-Fecha: 2026-05-05
+Fecha: 2026-05-09
 Descripción: CRUDE CICLO1
 */
 
