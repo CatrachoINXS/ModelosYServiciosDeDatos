@@ -26,7 +26,7 @@ CREATE TABLE Domiciliarios(
     idEmpleado NUMBER(5) NOT NULL,
     pedidosEntregados NUMBER(5) NOT NULL,
     placaVehiculo VARCHAR(6),
-    disponiblidad NUMBER(1) NOT NULL);
+    disponibilidad NUMBER(1) NOT NULL);
     
 CREATE TABLE Meseros(
     idEmpleado NUMBER(5) NOT NULL,
@@ -487,7 +487,7 @@ DECLARE
 BEGIN
     SELECT COUNT(*) INTO xConteo FROM Pedidos;
     :NEW.id := LPAD(xConteo + 1, 5, 0);
-    :NEW.estadoEntrega := 'Pendiente';
+    :NEW.estado := 'Pendiente';
 EXCEPTION
     WHEN OTHERS THEN
         RAISE_APPLICATION_ERROR(-20010, 'Error al adicionar pedido: ' || SQLERRM);

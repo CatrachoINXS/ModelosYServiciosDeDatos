@@ -59,7 +59,7 @@ END;
 CREATE OR REPLACE PACKAGE PC_OFERTA AS
    PROCEDURE registrarMenu(xActivo IN NUMBER);
    PROCEDURE actualizarMenu(xId IN NUMBER, xActivo IN NUMBER);
-   PROCEDURE eliminarMenu(xId, IN NUMBER) RETURN SYS_REFCURSOR;
+   PROCEDURE eliminarMenu(xId IN NUMBER);
    FUNCTION consultarMenu(xId IN NUMBER) RETURN SYS_REFCURSOR;
    FUNCTION consultarTodosLosMenus RETURN SYS_REFCURSOR;
    PROCEDURE registrarProducto(xNombre IN VARCHAR, xPrecio IN NUMBER, xDescripcion IN VARCHAR, xStock IN NUMBER, xIdMenu IN NUMBER);
@@ -70,7 +70,7 @@ CREATE OR REPLACE PACKAGE PC_OFERTA AS
    PROCEDURE registrarBebida(xIdProducto IN NUMBER, xTipoBebida IN VARCHAR);
    PROCEDURE actualizarBebida(xIdProducto IN NUMBER, xTipoBebida IN VARCHAR);
    PROCEDURE registrarSalchipapa(xIdProducto IN NUMBER, xTipoSalchipapa IN VARCHAR, xTamaño IN VARCHAR);
-   PROCEDURE actualizarSalchipapa(xIdProducto IN NUMBER, tipoSalchipapa IN VARCHAR, tamaño IN NUMBER);
+   PROCEDURE actualizarSalchipapa(xIdProducto IN NUMBER, xTipoSalchipapa IN VARCHAR, xTamaño IN VARCHAR);
    PROCEDURE registrarIngrediente(xIdProducto IN NUMBER, xIngrediente IN VARCHAR);
    PROCEDURE actualizarIngrediente(xIdProducto IN NUMBER, xIngrediente IN VARCHAR);
    FUNCTION consultarIngredientes(xIdProducto IN NUMBER) RETURN SYS_REFCURSOR;

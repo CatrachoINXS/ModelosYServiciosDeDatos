@@ -173,7 +173,7 @@ CREATE OR REPLACE PACKAGE BODY PC_CLIENTE AS
 
     FUNCTION consultarCliente(xId IN NUMBER) RETURN SYS_REFCURSOR IS xResultado SYS_REFCURSOR;
     BEGIN 
-      OPEN xResultado FOR SELECT id, nombres, apellidos, telefono, direccion, clienteFiel, resena, idMesero
+      OPEN xResultado FOR SELECT id, nombres, apellidos, telefono, direccion, clienteFiel, reseña, idMesero
                           FROM clientes
                           WHERE id = xId;
       RETURN xResultado;
@@ -508,10 +508,10 @@ CREATE OR REPLACE PACKAGE BODY PC_OFERTA AS
             RAISE_APPLICATION_ERROR(-20049, 'Error al actualizar bebida: ' || SQLERRM);
     END;
 
-    PROCEDURE registrarSalchipapa(xIdProducto IN NUMBER, xTipoSalchipapa IN VARCHAR, xTamano IN VARCHAR2) 
+    PROCEDURE registrarSalchipapa(xIdProducto IN NUMBER, xTipoSalchipapa IN VARCHAR, xTamaño IN VARCHAR) 
     IS BEGIN
-        INSERT INTO salchipapas (idProducto, tipoSalchipapa, tamaÑo)
-        VALUES (xIdProducto, xTipoSalchipapa, xTamano);
+        INSERT INTO salchipapas (idProducto, tipoSalchipapa, tamaño)
+        VALUES (xIdProducto, xTipoSalchipapa, xTamaño);
         COMMIT;
     EXCEPTION
         WHEN OTHERS THEN
@@ -519,7 +519,7 @@ CREATE OR REPLACE PACKAGE BODY PC_OFERTA AS
             RAISE_APPLICATION_ERROR(-20050, 'Error al registrar salchipapa: ' || SQLERRM);
     END;
 
-    PROCEDURE actualizarSalchipapa(xIdProducto IN NUMBER, xTipoSalchipapa IN VARCHAR, xTamano IN VARCHAR) 
+    PROCEDURE actualizarSalchipapa(xIdProducto IN NUMBER, xTipoSalchipapa IN VARCHAR, xTamaño IN VARCHAR) 
     IS BEGIN
         UPDATE salchipapas SET tipoSalchipapa = xTipoSalchipapa, tamaño = xTamaño
         WHERE idProducto = xIdProducto;
@@ -567,6 +567,3 @@ CREATE OR REPLACE PACKAGE BODY PC_OFERTA AS
     END ;
 END;
 /
-
-
-

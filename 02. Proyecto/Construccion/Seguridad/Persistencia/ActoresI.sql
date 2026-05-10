@@ -10,25 +10,119 @@ Descripción: Implementación de dichos paquetes. CICLO1
  */
 CREATE OR REPLACE PACKAGE BODY PK_CAJERO IS
 
-    PROCEDURE clienteAdicionar(xCliId IN NUMBER);
-    PROCEDURE clienteModificar(xCliId IN NUMBER);
-    PROCEDURE clienteEliminar(xCliId IN NUMBER);
-    FUNCTION clienteConsultar(xCliId IN NUMBER) RETURN SYS_REFCURSOR;
+    PROCEDURE clienteAdicionar(xNombres IN VARCHAR, xApellidos IN VARCHAR,
+                               xTelefono IN VARCHAR, xDireccion IN VARCHAR,
+                               xIdMesero IN NUMBER)
+    IS
+    BEGIN
+        PC_CLIENTE.registrarCliente(xNombres, xApellidos, xTelefono, xDireccion, xIdMesero);
+    END;
 
-    PROCEDURE pagoAdicionar(xCliId IN NUMBER, xFacId IN NUMBER);
-    PROCEDURE pagoModificar(xCliId IN NUMBER, xFacId IN NUMBER);
-    FUNCTION pagoConsultar(xCliId IN NUMBER, xFacId IN NUMBER) RETURN SYS_REFCURSOR;
+    PROCEDURE clienteModificar(xId IN NUMBER, xNombres IN VARCHAR,
+                               xApellidos IN VARCHAR, xTelefono IN VARCHAR,
+                               xDireccion IN VARCHAR)
+    IS
+    BEGIN
+        PC_CLIENTE.actualizarCliente(xId, xNombres, xApellidos, xTelefono, xDireccion);
+    END;
 
-    PROCEDURE facturaAdicionar(xFacId IN NUMBER);
-    PROCEDURE facturaModificar(xFacId IN NUMBER);
-    PROCEDURE facturaEliminar(xFacId IN NUMBER);
-    FUNCTION facturaConsultar(xFacId IN NUMBER) RETURN SYS_REFCURSOR;
+    PROCEDURE clienteEliminar(xId IN NUMBER)
+    IS
+    BEGIN
+        PC_CLIENTE.eliminarCliente(xId);
+    END;
 
-    PROCEDURE pedidoAdicionar(xPedId IN NUMBER);
-    PROCEDURE pedidoModificar(xPedId IN NUMBER);
-    FUNCTION pedidoConsultar(xPedId IN NUMBER) RETURN SYS_REFCURSOR;
+    FUNCTION clienteConsultar(xId IN NUMBER)
+    RETURN SYS_REFCURSOR
+    IS
+    BEGIN
+        RETURN PC_CLIENTE.consultarCliente(xId);
+    END;
 
-    FUNCTION preciosProductos RETURN SYS_REFCURSOR;
+    PROCEDURE pagoAdicionar(xIdCliente IN NUMBER, xIdFactura IN VARCHAR,
+                            xMetodoPago IN VARCHAR, xEstadoPago IN VARCHAR)
+    IS
+    BEGIN
+        PC_VENTA.registrarPago(xIdCliente, xIdFactura, xMetodoPago, xEstadoPago);
+    END;
+
+    PROCEDURE pagoModificar(xIdCliente IN NUMBER, xIdFactura IN VARCHAR,
+                            xEstadoPago IN VARCHAR)
+    IS
+    BEGIN
+        PC_VENTA.actualizarPago(xIdCliente, xIdFactura, xEstadoPago);
+    END;
+
+    FUNCTION pagoConsultar(xIdFactura IN VARCHAR)
+    RETURN SYS_REFCURSOR
+    IS
+    BEGIN
+        RETURN PC_VENTA.consultarPago(xIdFactura);
+    END;
+
+    PROCEDURE facturaAdicionar(xDireccion IN VARCHAR, xEstadoFactura IN VARCHAR,
+                            xPropina IN NUMBER, xPrecio IN NUMBER,
+                            xIdCliente IN NUMBER,xIdPedido IN NUMBER)
+    IS
+    BEGIN
+        PC_VENTA.registrarFactura(xDireccion, xEstadoFactura,
+                                  xPropina, xPrecio,
+                                  xIdCliente, xIdPedido);
+    END;
+
+    PROCEDURE facturaModificar(xId IN VARCHAR, xEstadoFactura IN VARCHAR,
+                            xPropina IN NUMBER)
+    IS
+    BEGIN
+        PC_VENTA.actualizarFactura(xId, xEstadoFactura, xPropina);
+    END;
+
+    PROCEDURE facturaEliminar(xId IN VARCHAR)
+    IS
+    BEGIN
+        PC_VENTA.eliminarFactura(xId);
+    END;
+
+    FUNCTION facturaConsultar(xId IN VARCHAR)
+    RETURN SYS_REFCURSOR
+    IS
+    BEGIN
+        RETURN PC_VENTA.consultarFactura(xId);
+    END;
+
+    PROCEDURE pedidoAdicionar(xEstado IN VARCHAR, xPrecio IN NUMBER,
+                            xIdCliente IN NUMBER)
+    IS
+    BEGIN
+        PC_VENTA.registrarPedido(xEstado, xPrecio, xIdCliente);
+    END;
+
+    PROCEDURE pedidoModificar(xId IN NUMBER, xEstado IN VARCHAR,
+                            xPrecio IN NUMBER)
+    IS
+    BEGIN
+        PC_VENTA.actualizarPedido(xId, xEstado, xPrecio);
+    END;
+
+    FUNCTION pedidoConsultar(xId IN NUMBER)
+    RETURN SYS_REFCURSOR
+    IS
+    BEGIN
+        RETURN PC_VENTA.consultarPedido(xId);
+    END;
+
+    FUNCTION preciosProductos
+    RETURN SYS_REFCURSOR
+    IS
+        xResultado SYS_REFCURSOR;
+    BEGIN
+        OPEN xResultado FOR
+            SELECT nombre, precio
+            FROM Productos
+            ORDER BY nombre;
+
+        RETURN xResultado;
+    END;
 
 END PK_CAJERO;
 /
@@ -38,15 +132,71 @@ END PK_CAJERO;
  */
 CREATE OR REPLACE PACKAGE BODY PK_ADMINISTRADOR IS
 
-    PROCEDURE productoAdicionar(xCliId IN NUMBER);
-    PROCEDURE productoModificar(xCliId IN NUMBER);
-    PROCEDURE productoEliminar(xCliId IN NUMBER);
-    FUNCTION productoConsultar(xCliId IN NUMBER) RETURN SYS_REFCURSOR;
+    PROCEDURE productoAdicionar(xNombre IN VARCHAR, xPrecio IN NUMBER,
+                                xDescripcion IN VARCHAR, xStock IN NUMBER,
+                                xIdMenu IN NUMBER)
+    IS
+    BEGIN
+        PC_OFERTA.registrarProducto(xNombre, xPrecio, xDescripcion, xStock, xIdMenu);
+    END;
 
-    PROCEDURE empleadoAdicionar(xFacId IN NUMBER);
-    PROCEDURE empleadoModificar(xFacId IN NUMBER);
-    PROCEDURE empleadoEliminar(xFacId IN NUMBER);
-    FUNCTION empleadoConsultar(xFacId IN NUMBER) RETURN SYS_REFCURSOR;
+    PROCEDURE productoModificar(xId IN NUMBER, xNombre IN VARCHAR,
+                                xPrecio IN NUMBER, xDescripcion IN VARCHAR,
+                                xStock IN NUMBER, xIdMenu IN NUMBER)
+    IS
+    BEGIN
+        PC_OFERTA.actualizarProducto(xId, xNombre, xPrecio, xDescripcion, xStock, xIdMenu);
+    END;
+
+    PROCEDURE productoEliminar(xId IN NUMBER)
+    IS
+    BEGIN
+        PC_OFERTA.eliminarProducto(xId);
+    END;
+
+    FUNCTION productoConsultar(xId IN NUMBER)
+    RETURN SYS_REFCURSOR
+    IS
+    BEGIN
+        RETURN PC_OFERTA.consultarProducto(xId);
+    END;
+
+    PROCEDURE empleadoAdicionar(xNombres IN VARCHAR, xApellidos IN VARCHAR,
+                                xTelefono IN VARCHAR, xDireccionResidencia IN VARCHAR,
+                                xCorreo IN VARCHAR, xEPS IN VARCHAR,
+                                xAseguradora IN VARCHAR, xSalario IN NUMBER,
+                                xFechaIngreso IN DATE)
+    IS
+    BEGIN
+        PC_TRABAJADOR.registrarEmpleado(xNombres, xApellidos, xTelefono,
+                                        xDireccionResidencia, xCorreo, xEPS,
+                                        xAseguradora, xSalario, xFechaIngreso);
+    END;
+
+    PROCEDURE empleadoModificar(xId IN NUMBER, xNombres IN VARCHAR,
+                                xApellidos IN VARCHAR, xTelefono IN VARCHAR,
+                                xDireccionResidencia IN VARCHAR, xCorreo IN VARCHAR, 
+                                xEPS IN VARCHAR, xAseguradora IN VARCHAR, 
+                                xSalario IN NUMBER, xFechaIngreso IN DATE)
+    IS
+    BEGIN
+        PC_TRABAJADOR.actualizarEmpleado(xId, xNombres, xApellidos,
+                                         xTelefono, xDireccionResidencia, xCorreo,
+                                         xEPS, xAseguradora, xSalario, xFechaIngreso);
+    END;
+
+    PROCEDURE empleadoEliminar(xId IN NUMBER)
+    IS
+    BEGIN
+        PC_TRABAJADOR.eliminarEmpleado(xId);
+    END;
+
+    FUNCTION empleadoConsultar(xId IN NUMBER)
+    RETURN SYS_REFCURSOR
+    IS
+    BEGIN
+        RETURN PC_TRABAJADOR.consultarEmpleado(xId);
+    END;
 
 END PK_ADMINISTRADOR;
 /
@@ -56,8 +206,37 @@ END PK_ADMINISTRADOR;
  */
 CREATE OR REPLACE PACKAGE BODY PK_GERENTE IS
 
-    FUNCTION productosMasApetecidos RETURN SYS_REFCURSOR;
-    FUNCTION sugerencias RETURN SYS_REFCURSOR;
+    FUNCTION productosMasApetecidos
+    RETURN SYS_REFCURSOR
+    IS
+        xResultado SYS_REFCURSOR;
+    BEGIN
+        OPEN xResultado FOR
+            SELECT p.nombre,
+                   COUNT(*) AS totalPedidos
+            FROM SeComponenDe s
+            JOIN Productos p
+            ON s.idProducto = p.id
+            GROUP BY p.nombre
+            ORDER BY totalPedidos DESC;
+
+        RETURN xResultado;
+    END;
+
+    FUNCTION sugerencias
+    RETURN SYS_REFCURSOR
+    IS
+        xResultado SYS_REFCURSOR;
+    BEGIN
+        OPEN xResultado FOR
+            SELECT nombres,
+                   apellidos,
+                   reseña
+            FROM Clientes
+            WHERE reseña IS NOT NULL;
+
+        RETURN xResultado;
+    END;
 
 END PK_GERENTE;
 /
