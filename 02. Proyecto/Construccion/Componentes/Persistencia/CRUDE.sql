@@ -1,3 +1,10 @@
+/*
+SalchiTask
+Autores: Juan Jose Perez Torres, Cristian Camilo Ortiz Sánchez
+Fecha: 2026-05-05
+Descripción: CRUDE CICLO1
+*/
+
 /*CRUDE PC_TRABAJADOR*/
 CREATE OR REPLACE PACKAGE PC_TRABAJADOR AS
    PROCEDURE registrarEmpleado(xNombres IN VARCHAR, xApellidos IN VARCHAR, xTelefono IN VARCHAR, xDireccionResidencia IN VARCHAR, xCorreo IN VARCHAR, xEPS IN VARCHAR,
