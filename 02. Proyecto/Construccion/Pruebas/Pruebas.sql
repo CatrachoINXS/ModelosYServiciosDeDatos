@@ -89,3 +89,6 @@ EXECUTE PK_ADMINISTRADOR.productoModificar(3,'Apocaliptica',22000,'Meteoritos de
 VARIABLE rc14 REFCURSOR
 EXECUTE PK_ADMINISTRADOR.empleadoConsultar(4, :rc14);
 PRINT rc14;
+
+
+/*Prueba de aceptación 2*/
