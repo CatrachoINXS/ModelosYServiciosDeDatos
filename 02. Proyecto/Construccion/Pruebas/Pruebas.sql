@@ -56,11 +56,11 @@ EXECUTE PK_CAJERO.pedidoConsultar(4, :rc8);
 PRINT rc8;
 
 /*Luego de comer, la cajera generó la factura*/
-EXECUTE PK_CAJERO.facturaAdicionar('A2026-05-000001', DATE '2026-05-10', 'Carrera 8 7 26', 'Pagada', NULL, 18000, 1, 1);
+EXECUTE PK_CAJERO.facturaAdicionar('Carrera 8 7 26', 'Pagada', NULL, 18000, 1, 1);
 
 /*La cajera se dio cuenta de que habia generado la factura de otro cliente entonces la borró y genero una nueva factura para luego consultarla*/
 EXECUTE PK_CAJERO.facturaEliminar('A2026-05-000001');
-EXECUTE PK_CAJERO.facturaAdicionar('A2026-05-000004',DATE '2026-05-12','Calle 123 #80 - 66','Emitida', 15000, 40000, 4, 4);
+EXECUTE PK_CAJERO.facturaAdicionar('Calle 123 #80 - 66','Emitida', 25000, 40000, 4, 4);
 VARIABLE rc9 REFCURSOR;
 EXECUTE PK_CAJERO.facturaConsultar('A2026-05-000004', :rc9);
 PRINT rc9;
@@ -92,3 +92,64 @@ PRINT rc14;
 
 
 /*Prueba de aceptación 2*/
+
+/*La cajera registra a Camilo y a Daniela*/
+EXECUTE PK_CAJERO.clienteAdicionar('Camilo', 'Ríos', 3127709832, 'Avenida Caracas 22 - 90', 2)
+EXECUTE PK_CAJERO.clienteAdicionar('Daniela', 'Peña', 3215475109, 'Calle 189 #12A 19', 2)
+
+/*La cajera valida que se hayan registrado y les muestra el menú*/
+VARIABLE rc15 REFCURSOR;
+EXECUTE PK_CAJERO.consultarCliente(7, :rc15);
+PRINT rc15;
+VARIABLE rc16 REFCURSOR;
+EXECUTE PK_CAJERO.consultarCliente(8, :rc16);
+PRINT rc16;
+
+VARIABLE rc17 REFCURSOR;
+EXECUTE PK_CAJERO.preciosProductos(rc17);
+PRINT rc17;
+
+/*El mesero registra el pedido: una salchipapa La Demoníaca y una cocacola*/
+EXECUTE PK_CAJERO.pedidoAdicionar('Pendiente', 26000, 7);
+
+/*Verifica que la orden haya sido registrada correctamente*/
+VARIABLE rc18 REFCURSOR;
+EXECUTE PK_CAJERO.pedidoConsultar(5, :rc18);
+PRINT rc18;
+
+/*La cajera cambia el numero de telefono de Camilo*/
+EXECUTE PK_CAJERO.clienteModificar(7, 'Camilo', 'Ríos', 3135709832, 'Avenida Caracas 22 - 90');
+
+/*Verifica que el cambio se haya guardado correctamente*/
+VARIABLE rc19 REFCURSOR;
+EXECUTE PK_CAJERO.clienteConsultar(7, :rc19);
+PRINT rc19;
+
+/*La cajera procede a generar la factura*/
+EXECUTE PK_CAJERO.facturaAdicionar('Avenida Caracas 22 - 90', 'Emitida', 7000, 26000, 7, 5);
+
+/*Verifica que haya generado bien la factura*/
+VARIABLE rc20 REFCURSOR;
+EXECUTE PK_CAJERO.facturaConsultar('A2026-05-000005', :rc20);
+PRINT rc20;
+
+/*Se registra el pago del pedido exitosamente*/
+EXECUTE PK_CAJERO.pagoAdicionar(7, 'A2026-05-000005', 'Efectivo', 'Aceptado');
+
+/*La cajera revisa que el pago se vea reflejado en el sistema*/
+VARIABLE rc21;
+EXECUTE PK_CAJERO.pagoConsultar('A2026-05-000005', :rc21);
+PRINT rc21;
+
+/*La cajera registra a Rodrigo*/
+EXECUTE PK_CAJERO.clienteAdicionar('Rodrigo', 'Bermúdez', 3218394563, 'Centro comercial Santafe', 1);
+
+/*Revisa que se haya registrado exitosamente*/
+VARIABLE rc22 REFCURSOR;
+EXECUTE PK_CAJERO.clienteConsultar(9, :rc22);
+PRINT rc22;
+
+/*El mesero registra el pedido de Rodrigo: La Nuclear Clásica y un jugo hit*/
+EXECUTE PK_CAJERO.pedidoAdicionar('Pendiente', 17000, 9);
+
+/*Antes de verificar si lo habia registrado correctamente, el mesero tuvo que corregirlo*/
