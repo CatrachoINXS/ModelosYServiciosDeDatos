@@ -10,7 +10,8 @@ Descripción: Pruebas de aceptación CICLO1
 /*La cajera registra a la familia uno por uno*/
 EXECUTE PK_CAJERO.clienteAdicionar('Juan Esteban', 'Colina Tovar', 3001234825, 'Calle 123 #54-90', 4);
 EXECUTE PK_CAJERO.clienteAdicionar('Angie Tatiana', 'Colina', NULL, 'Calle 123 #54-90', 4);
-EXECUTE PK_CAJERO.clienteAdicionar('Juan Esteban', 'Colina Tovar', NULL, 'Calle 123 #54-90', 4);
+-- CORRECCIÓN: estaba registrado como 'Juan Esteban' de nuevo en lugar de 'Daniel Alberto'
+EXECUTE PK_CAJERO.clienteAdicionar('Daniel Alberto', 'Colina', NULL, 'Calle 123 #54-90', 4);
 
 /*La cajera consulta que los datos se hayan guardado en el sistema*/
 VARIABLE rc1 REFCURSOR;
@@ -25,8 +26,9 @@ PRINT rc3;
 
 /*Juan Esteban indica que dio mal algunos datos y la cajera los corrige*/
 EXECUTE PK_CAJERO.clienteModificar(4, 'Juan Esteban', 'Colina Tovar', 3215783349, 'Calle 123 #80 - 66');
-EXECUTE PK_CAJERO.clienteModificar(4, 'Angie Tatiana', 'Colina', NULL, 'Calle 123 #80 - 66');
-EXECUTE PK_CAJERO.clienteModificar(4, 'Daniel Alberto', 'Colina', NULL, 'Calle 123 #80 - 66');
+-- CORRECCIÓN: los dos siguientes tenían ID 4, deben ser 5 y 6 (los hijos)
+EXECUTE PK_CAJERO.clienteModificar(5, 'Angie Tatiana', 'Colina', NULL, 'Calle 123 #80 - 66');
+EXECUTE PK_CAJERO.clienteModificar(6, 'Daniel Alberto', 'Colina', NULL, 'Calle 123 #80 - 66');
 
 /*La cajera consulta nuevamente los datos para verificar que haya guardado bien los datos*/
 VARIABLE rc4 REFCURSOR;
@@ -86,7 +88,7 @@ VARIABLE rc13 REFCURSOR;
 EXECUTE PK_ADMINISTRADOR.productoConsultar(3, :rc13);
 PRINT rc13;
 EXECUTE PK_ADMINISTRADOR.productoModificar(3,'Apocaliptica',22000,'Meteoritos de papa y salchicha sobre papas bañadas en queso',30,1);
-VARIABLE rc14 REFCURSOR
+VARIABLE rc14 REFCURSOR;
 EXECUTE PK_ADMINISTRADOR.empleadoConsultar(4, :rc14);
 PRINT rc14;
 
@@ -94,19 +96,20 @@ PRINT rc14;
 /*Prueba de aceptación 2*/
 
 /*La cajera registra a Camilo y a Daniela*/
-EXECUTE PK_CAJERO.clienteAdicionar('Camilo', 'Ríos', 3127709832, 'Avenida Caracas 22 - 90', 2)
-EXECUTE PK_CAJERO.clienteAdicionar('Daniela', 'Peña', 3215475109, 'Calle 189 #12A 19', 2)
+EXECUTE PK_CAJERO.clienteAdicionar('Camilo', 'Ríos', 3127709832, 'Avenida Caracas 22 - 90', 2);
+EXECUTE PK_CAJERO.clienteAdicionar('Daniela', 'Peña', 3215475109, 'Calle 189 #12A 19', 2);
 
 /*La cajera valida que se hayan registrado y les muestra el menú*/
 VARIABLE rc15 REFCURSOR;
-EXECUTE PK_CAJERO.consultarCliente(7, :rc15);
+EXECUTE PK_CAJERO.clienteConsultar(7, :rc15);
 PRINT rc15;
 VARIABLE rc16 REFCURSOR;
-EXECUTE PK_CAJERO.consultarCliente(8, :rc16);
+EXECUTE PK_CAJERO.clienteConsultar(8, :rc16);
 PRINT rc16;
 
 VARIABLE rc17 REFCURSOR;
-EXECUTE PK_CAJERO.preciosProductos(rc17);
+-- CORRECCIÓN: faltaban los dos puntos antes de rc17
+EXECUTE PK_CAJERO.preciosProductos(:rc17);
 PRINT rc17;
 
 /*El mesero registra el pedido: una salchipapa La Demoníaca y una cocacola*/
@@ -137,7 +140,7 @@ PRINT rc20;
 EXECUTE PK_CAJERO.pagoAdicionar(7, 'A2026-05-000005', 'Efectivo', 'Aceptado');
 
 /*La cajera revisa que el pago se vea reflejado en el sistema*/
-VARIABLE rc21;
+VARIABLE rc21 REFCURSOR;
 EXECUTE PK_CAJERO.pagoConsultar('A2026-05-000005', :rc21);
 PRINT rc21;
 
@@ -152,4 +155,42 @@ PRINT rc22;
 /*El mesero registra el pedido de Rodrigo: La Nuclear Clásica y un jugo hit*/
 EXECUTE PK_CAJERO.pedidoAdicionar('Pendiente', 17000, 9);
 
-/*Antes de verificar si lo habia registrado correctamente, el mesero tuvo que corregirlo*/
+/*Antes de verificar si lo habia registrado correctamente, el mesero tuvo que corregirlo porque Rodrigo cambió de opinión con la bebida*/
+EXECUTE PK_CAJERO.pedidoModificar(6, 'En camino', 20000);
+
+/*El mesero verifica que el pedido haya quedado bien registrado*/
+VARIABLE rc23 REFCURSOR;
+EXECUTE PK_CAJERO.pedidoConsultar(6, :rc23);
+PRINT rc23;
+
+/*La cajera genera la factura de Rodrigo*/
+EXECUTE PK_CAJERO.facturaAdicionar('Centro comercial Santafe', 'Emitida', NULL, 20000, 9, 6);
+
+/*La cajera consulta la factura para verificarla*/
+VARIABLE rc24 REFCURSOR;
+EXECUTE PK_CAJERO.facturaConsultar('A2026-05-000006', :rc24);
+PRINT rc24;
+
+/*Rodrigo paga a regañadientes*/
+EXECUTE PK_CAJERO.pagoAdicionar(9, 'A2026-05-000006', 'Efectivo', 'Aceptado');
+
+/*La cajera revisa que el pago quedó registrado*/
+VARIABLE rc25 REFCURSOR;
+EXECUTE PK_CAJERO.pagoConsultar('A2026-05-000006', :rc25);
+PRINT rc25;
+
+/*Rodrigo se va y publica una reseña grosera insultando al personal por su nombre. El administrador le indica a la cajera que elimine a Rodrigo del sistema*/
+EXECUTE PK_CAJERO.clienteEliminar(9);
+
+/*El administrador consulta los datos del mesero Felipe para revisar su historial tras el incidente con Rodrigo*/
+VARIABLE rc26 REFCURSOR;
+EXECUTE PK_ADMINISTRADOR.empleadoConsultar(2, :rc26);
+PRINT rc26;
+
+/*Aprovechando el cierre, el administrador agrega al menú la nueva Salchipapa Caribeña, idea que venía rondando desde hace días*/
+EXECUTE PK_ADMINISTRADOR.productoAdicionar('Salchipapa Caribeña', 18000, 'Salchipapa con patacón y hogao', 50, 1);
+
+/*Verifica que el nuevo producto haya quedado bien registrado*/
+VARIABLE rc27 REFCURSOR;
+EXECUTE PK_ADMINISTRADOR.productoConsultar(5, :rc27);
+PRINT rc27;
