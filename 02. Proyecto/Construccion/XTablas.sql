@@ -5,6 +5,16 @@ Fecha: 2026-03-22
 Descripción: Eliminación de Tablas y de llaves primarias, unicas y foraneas CICLO1
 */
 
+--XSeguridad
+
+DROP USER cajero1 CASCADE;
+DROP USER administrador1 CASCADE;
+DROP USER gerente CASCADE;
+
+DROP ROLE role_cajero_salchitask;
+DROP ROLE role_administrador_salchitask;
+DROP ROLE role_gerente_salchitask;
+
 --XForaneas
 ALTER TABLE Cajeros 
 DROP CONSTRAINT FK_CAJERO_EMPLEADO;
